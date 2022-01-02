@@ -1,3 +1,7 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+class CategoryViewSet(viewsets.ModelViewSet):
+    pass
+
+class PostViewSet(viewsets.ModelViewSet):
+    pass
