@@ -126,6 +126,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(Path(BASE_DIR).resolve().parent, 'media')
 MEDIA_URL = '/media/'
 
+CKEDITOR_BASEPATH = os.path.join(STATIC_ROOT, '/ckeditor/ckeditor/')
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
