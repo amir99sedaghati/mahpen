@@ -46,3 +46,7 @@ class Card(models.Model):
     courses = models.ManyToManyField(Course)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
 
+class Pay(models.Model):
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+    amount_sum = models.PositiveBigIntegerField(default=0)
+    detail = RichTextField(null=True, blank=True)
