@@ -11,6 +11,7 @@ class Course(models.Model):
     detail = RichTextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.PROTECT)
+    amount = models.PositiveBigIntegerField(default=0)
     off = models.PositiveSmallIntegerField(
         default=0,
         validators=[
@@ -38,4 +39,10 @@ class Commnet(models.Model):
     parent = models.ForeignKey('self' , related_name='parent_comment', null=True, on_delete=models.CASCADE)
     child = models.ForeignKey('self' , related_name='child_comment', null=True, on_delete=models.PROTECT)
     date = models.DateTimeField(auto_now=True)
+
+class Card(models.Model):
+    is_paid = models.BooleanField()
+    is_finished = models.BooleanField()
+    courses = models.ManyToManyField(Course)
+    user = models.ForeignKey(User , on_delete=models.CASCADE)
 
