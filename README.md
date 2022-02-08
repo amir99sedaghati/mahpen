@@ -5,3 +5,4 @@
 - [ ] write post method add course to card
 - [ ] connect gateway to payment card
 - [ ] user premission for see course
+- [ ] should we have model pay?
