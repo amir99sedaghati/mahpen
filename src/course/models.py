@@ -19,20 +19,21 @@ class Course(models.Model):
             MinValueValidator(0),
         ]
     )
-    image = models.ImageField(upload_to="course/image")
+    image = models.ImageField(upload_to="course/image", null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
+    is_expire = models.BooleanField(default=False)
 
 class Content(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    main_image = models.ImageField(upload_to="content/image")
+    main_image = models.ImageField(upload_to="content/image", null=True, blank=True)
     title = models.CharField(max_length=1024)
-    detail = RichTextField()
-    video = models.FileField(upload_to="course/video", validators=[validate_video_extension])
+    detail = RichTextField(null=True, blank=True)
+    video = models.FileField(upload_to="course/video", validators=[validate_video_extension], null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
 
 class Commnet(models.Model):
     name = models.CharField(max_length=256)
-    email = models.EmailField()
+    email = models.EmailField(null=True, blank=True)
     user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
     text = models.CharField(max_length=1024)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -41,8 +42,8 @@ class Commnet(models.Model):
     date = models.DateTimeField(auto_now=True)
 
 class Card(models.Model):
-    is_paid = models.BooleanField()
-    is_finished = models.BooleanField()
+    is_paid = models.BooleanField(default=False)
+    is_finished = models.BooleanField(default=False)
     courses = models.ManyToManyField(Course)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
 
