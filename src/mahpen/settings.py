@@ -139,10 +139,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AZ_IRANIAN_BANK_GATEWAYS = {
    'GATEWAYS': {
-       'ZARINPAL': {
-           'MERCHANT_CODE': '<YOUR MERCHANT CODE>',
-       },
+    #    'ZARINPAL': {
+    #        'MERCHANT_CODE': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    #    },
+        'IDPAY': {
+            'MERCHANT_CODE': '6a7f99eb-7c20-4412-a972-6dfb7cd253a4',
+            'METHOD': 'POST',  # GET or POST
+            'X_SANDBOX': 1,  # 0 disable, 1 active
+        },
    },
    'IS_SAMPLE_FORM_ENABLE': True,
-   'DEFAULT': 'ZARINPAL',
+   'DEFAULT': 'IDPAY',
+   'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader',
 }
