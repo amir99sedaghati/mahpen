@@ -1,6 +1,6 @@
 from rest_framework.permissions import BasePermission
 from rest_framework.exceptions import APIException
-from .models import Card
+from zarinpal.models import Pay
 
 class CourseIdNotNumericException(APIException):
     status_code = 400
@@ -19,5 +19,5 @@ class CourseIsPaid(BasePermission):
 
     def has_permission(self, request, view):
         course_id = self.get_course_numeric_id_or_raise_exception(request=request)
-        course_in_card = Card.objects.filter(is_paid=True, is_finished=True, user=request.user, courses__id=course_id)
+        course_in_card = Pay.objects.filter(status=100, card__courses__id=course_id, card__is_finished=True, card__is_paid=True)
         return course_in_card.count() > 0
