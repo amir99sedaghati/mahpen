@@ -7,7 +7,6 @@ from azbankgateways.exceptions import AZBankGatewaysException
 from django.http import Http404
 from django.urls import reverse
 from azbankgateways import bankfactories, models as bank_models, default_settings as settings
-from rest_framework.decorators import permission_classes
 from .permissions import CourseIsPaid
 from .models import (
     Card,
