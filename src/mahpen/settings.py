@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'ckeditor',
-    'azbankgateways',
     'blog',
     'course',
     'zarinpal',
@@ -135,24 +134,6 @@ CKEDITOR_UPLOAD_PATH = "/uploads/"
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# On-line pay
-
-AZ_IRANIAN_BANK_GATEWAYS = {
-   'GATEWAYS': {
-    #    'ZARINPAL': {
-    #        'MERCHANT_CODE': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    #    },
-        'IDPAY': {
-            'MERCHANT_CODE': '6a7f99eb-7c20-4412-a972-6dfb7cd253a4',
-            'METHOD': 'POST',  # GET or POST
-            'X_SANDBOX': 1,  # 0 disable, 1 active
-        },
-   },
-   'IS_SAMPLE_FORM_ENABLE': True,
-   'DEFAULT': 'IDPAY',
-   'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader',
-}
 
 # On-line zarinpal pay
 
