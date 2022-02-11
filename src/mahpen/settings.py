@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'azbankgateways',
     'blog',
     'course',
+    'zarinpal',
 ]
 
 MIDDLEWARE = [
@@ -151,4 +152,17 @@ AZ_IRANIAN_BANK_GATEWAYS = {
    'IS_SAMPLE_FORM_ENABLE': True,
    'DEFAULT': 'IDPAY',
    'SETTING_VALUE_READER_CLASS': 'azbankgateways.readers.DefaultReader',
+}
+
+# On-line zarinpal pay
+
+ZARINPAL_CONFIGURATION = {
+    'merchant_id' : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',  # Required
+    # 'ZARINPAL_WEBSERVICE' : 'https://www.zarinpal.com/pg/services/WebGate/wsdl',  # Required
+    'zarinpal_webservice' : 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
+    'amount' : 1000,  # Amount will be based on Toman  Required
+    'description' : u'توضیحات تراکنش تستی',  # Required
+    'email' : 'user@userurl.ir',  # Optional
+    'mobile' : '09123456789',  # Optional
+    'call_back_url' : 'http://127.0.0.1:8000',
 }
