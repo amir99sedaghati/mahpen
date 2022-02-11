@@ -1,10 +1,7 @@
 from rest_framework import serializers
-from .models import Pay
+from course.models import Card
 
-class PaySerializer(serializers.ModelSerializer):
+class CardSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Pay
-        exclude = [
-            'status',
-            'amount',
-        ]
+        model = Card
+        fields = '__all__'
