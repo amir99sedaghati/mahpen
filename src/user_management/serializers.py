@@ -29,6 +29,7 @@ class UserSerializer(serializers.ModelSerializer):
         )
         write_only_fields = (
             'password',
+            'password2',
         )
         read_only_fields = (
             'id',
