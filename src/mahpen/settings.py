@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog',
     'course',
     'zarinpal',
+    'user_management',
 ]
 
 MIDDLEWARE = [
