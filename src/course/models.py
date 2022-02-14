@@ -44,5 +44,12 @@ class Commnet(models.Model):
 class Card(models.Model):
     is_paid = models.BooleanField(default=False)
     is_finished = models.BooleanField(default=False)
-    courses = models.ManyToManyField(Course)
+    courses = models.ManyToManyField(Course, blank=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
+
+
+    # def save(self, *args, **kwargs):
+    #     if self.id is None :
+    #         if Card.objects.filter(is_paid=False, user=self.user).count() > 0 :
+    #             return
+    #     super(Card, self).save(*args, **kwargs)
