@@ -32,7 +32,7 @@ class PayViewSet(ViewSet):
         return {
             "email" : request.user.email,
             "amount" : amount ,
-            "call_back_url" : F'{CALL_BACK_URL}/card/{card.id}/verify/?email={request.user.email}',
+            "call_back_url" : F'{CALL_BACK_URL}/card/{card.id}/verify/?amount={amount}&email={request.user.email}',
         }
 
     def send_request(self, user_data_dictionary):
@@ -47,15 +47,16 @@ class PayViewSet(ViewSet):
             # return redirect('https://www.zarinpal.com/pg/StartPay/' + result.Authority)
             return redirect('https://sandbox.zarinpal.com/pg/StartPay/' + result.Authority)
         else:
-            return Response({'status' , 'شما تنظیمات درگاه زرین پال را به درستی انجام نداده اید'},
+            return Response({'status' : 'شما تنظیمات درگاه زرین پال را به درستی انجام نداده اید'},
                     status=status.HTTP_502_BAD_GATEWAY)
 
     @action(detail=True , methods=["get"])
     def verify(self, request, pk=None):
         card = get_object_or_404(self.card_queryset.filter(is_finished=True) , pk=pk)
-        amount = sum([ x.amount - (x.amount * ( x.off / 100 )) for x in card.courses.all() ])
-        client = Client(ZARINPAL_WEBSERVICE)
         if request.GET.get('Status') == 'OK':
+            amount = request.GET.get('amount')
+            client = Client(ZARINPAL_WEBSERVICE)
+            
             result = client.service.PaymentVerification(MMERCHANT_ID,
                                                         request.GET.get('Authority'),
                                                         amount)
