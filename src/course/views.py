@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import (
     Course,
     Content,
+    Card,
 )
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -32,3 +33,18 @@ class CourseViewSet(viewsets.ModelViewSet):
         content = get_object_or_404(self.get_content_queryset(course_id).filter(id=video_id))
         serializer = self.get_content_serializer()(content, many=False)
         return Response(serializer.data)
+
+class CardViewSet(viewsets.ViewSet):
+    course_queryset = Course.objects.all()
+
+    @action(detail=False , methods=["get"], url_path='add-course/(?P<course_id>[^/.]+)', permission_classes=[IsAuthenticated])
+    def get_content(self, request, course_id=None):
+        card = Card.objects.get_or_create(
+            user = request.user.id ,
+            is_finished = False ,
+            is_paid = False ,
+        )
+        print(card[0].courses)
+        card.courses.add(get_object_or_404(self.course_queryset().filter(id=course_id)))
+        return Response({"status" : "ok"})
+
