@@ -26,3 +26,9 @@ class CourseIsPaid(BasePermission):
         course_id = self.get_course_numeric_id_or_raise_exception(request=request)
         course_in_card = Pay.objects.filter(status=100,card__user__id=request.user.id, card__courses__id=course_id, card__is_finished=True, card__is_paid=True)
         return course_in_card.count() > 0
+
+class UserActiveCardPermission(BasePermission):
+    message = "شما سبد خرید فعالی ندارید"
+
+    def has_permission(self, request, view):
+        return not Card.objects.filter(is_finished=False, is_paid=False, user=request.user).exists()
