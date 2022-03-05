@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from . import serializers
-from .permissions import CourseIsPaid
+from .permissions import CourseIsPaid, UserHavePaidCardsPermission
 from rest_framework.permissions import IsAuthenticated
 from .models import (
     Course,
@@ -37,14 +37,14 @@ class CourseViewSet(viewsets.ModelViewSet):
 class CardViewSet(viewsets.ViewSet):
     course_queryset = Course.objects.all()
 
-    @action(detail=False , methods=["get"], url_path='add-course/(?P<course_id>[^/.]+)', permission_classes=[IsAuthenticated])
+    @action(detail=False , methods=["get"], url_path='add-course/(?P<course_id>[^/.]+)', permission_classes=[IsAuthenticated, UserHavePaidCardsPermission])
     def get_content(self, request, course_id=None):
+        course = get_object_or_404(self.course_queryset.filter(id=course_id))
         card = Card.objects.get_or_create(
-            user = request.user.id ,
+            user = request.user ,
             is_finished = False ,
             is_paid = False ,
-        )
-        print(card[0].courses)
-        card.courses.add(get_object_or_404(self.course_queryset().filter(id=course_id)))
+        )[0]
+        card.courses.add(course)
         return Response({"status" : "ok"})
 

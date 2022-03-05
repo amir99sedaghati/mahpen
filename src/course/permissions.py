@@ -1,11 +1,16 @@
 from rest_framework.permissions import BasePermission
-from rest_framework.exceptions import APIException
 from zarinpal.models import Pay
+from .models import Card
+from .exceptions import CourseIdNotNumericException
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
-class CourseIdNotNumericException(APIException):
-    status_code = 400
-    default_detail = 'آیدی کورس حتما باید عددی باشد'
-    default_code = 'bad_request'
+class UserHavePaidCardsPermission(BasePermission):
+    message = "تا موقعی که سبد خرید های قبلی خود را پرداخت نکرده باشید اجازه اضافه کردن محتوای دیگری را ندارید"
+
+    def has_permission(self, request, view):
+        return not Card.objects.filter(is_finished=True, is_paid=False, user=request.user).exists()
+
 
 class CourseIsPaid(BasePermission):
     message = "شما این کورس را خریداری نکرده اید و اجازه دیدن محتوای آنرا ندارید"
