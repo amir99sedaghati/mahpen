@@ -16,11 +16,14 @@ class CourseIsPaid(BasePermission):
     message = "شما این کورس را خریداری نکرده اید و اجازه دیدن محتوای آنرا ندارید"
 
     def get_course_numeric_id_or_raise_exception(self, request):
-        course_id = request.META.get("PATH_INFO").split("/")[2]
-        if course_id.isnumeric() :
-            return int(course_id)
-        else :
-            raise CourseIdNotNumericException
+        try : 
+            course_id = request.META.get("PATH_INFO").split("/")[2]
+            if course_id.isnumeric() :
+                return int(course_id)
+            else :
+                raise CourseIdNotNumericException
+        except IndexError :
+            pass
 
     def has_permission(self, request, view):
         course_id = self.get_course_numeric_id_or_raise_exception(request=request)

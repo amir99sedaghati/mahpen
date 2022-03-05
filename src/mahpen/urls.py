@@ -16,14 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views
+from rest_framework.schemas import get_schema_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('__debug__/', include('debug_toolbar.urls')),
-    path('api-auth/', include('rest_framework.urls')),
-    path('blog/', include('blog.urls')),
-    path('', include('course.urls')),
-    path('zarin/', include('zarinpal.urls')),
-    path('user/', include('user_management.urls')),
-    path('user/get-token/', views.obtain_auth_token)
+    path('api/admin/', admin.site.urls),
+    path('api/__debug__/', include('debug_toolbar.urls')),
+    path('api/api-auth/', include('rest_framework.urls')),
+    path('api/blog/', include('blog.urls')),
+    path('api/content/', include('course.urls')),
+    path('api/zarin/', include('zarinpal.urls')),
+    path('api/user/', include('user_management.urls')),
+    path('api/user/get-token/', views.obtain_auth_token),
+    path('api/', get_schema_view(
+        title="mahpen APIs",
+        description="API for all things ......",
+        version="1.0.0"
+    ), name='mahpen-schema'),
 ]
+
