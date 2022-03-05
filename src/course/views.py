@@ -40,11 +40,10 @@ class CourseViewSet(viewsets.ModelViewSet):
 
 class CardViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.CardSerializer
-    course_queryset = Course.objects.all()
+    course_queryset = CourseViewSet.queryset
 
     def get_queryset(self):
-        return Card.objects.filter(user=self.request.user)
-
+        return Card.objects.filter(user=self.request.user).prefetch_related('courses__teacher', 'courses__category')
 
     @action(detail=False , methods=["get"], url_path='add-course/(?P<course_id>[^/.]+)', permission_classes=[IsAuthenticated, UserHavePaidCardsPermission])
     def add_course_to_card(self, request, course_id=None):
@@ -60,8 +59,7 @@ class CardViewSet(viewsets.ModelViewSet):
     @action(detail=False , methods=["get"], url_path='del-course/(?P<course_id>[^/.]+)', permission_classes=[IsAuthenticated, UserActiveCardPermission])
     def del_course_from_card(self, request, course_id=None):
         course = get_object_or_404(self.course_queryset.filter(id=course_id))
-        card = get_object_or_404(Card.objects.filter(
-            user = request.user ,
+        card = get_object_or_404(self.queryset.filter(
             is_finished = False ,
             is_paid = False ,
         ))

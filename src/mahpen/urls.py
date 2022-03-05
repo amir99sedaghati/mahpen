@@ -23,7 +23,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('blog/', include('blog.urls')),
     path('', include('course.urls')),
-    path('card/', include('zarinpal.urls')),
+    path('zarin/', include('zarinpal.urls')),
     path('user/', include('user_management.urls')),
     path('user/get-token/', views.obtain_auth_token)
 ]
