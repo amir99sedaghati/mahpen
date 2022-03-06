@@ -2,17 +2,7 @@ from rest_framework import serializers
 from . import models
 from blog.serializers import CategorySerializer
 from django.contrib.auth.models import User
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = [
-            'id',
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-        ]
+from user_management.serializers import UserSerializer
 
 class CourseSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
