@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'zarinpal',
     'user_management',
     'debug_toolbar',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
