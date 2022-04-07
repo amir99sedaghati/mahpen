@@ -1,0 +1,894 @@
+@font-face{
+    font-family: "Kalameh";
+    src: url(../fonts/Kalameh-Regular.ttf) format('truetype');
+}
+body{
+    padding: 0;
+    margin: 0;
+    font-family: 'Kalameh';
+}
+*{
+    box-sizing: border-box;
+}
+header{
+    width: 100%;
+    height: 25vh;
+    background-color: #FBF9FB;
+    box-shadow: 1px 8px 10px 2px #888888;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    justify-content: end;
+}
+.headerLogo{
+    width: 33%;
+    position: relative;    
+}
+
+.typeLogo{
+    
+    height: 100%;
+    position: absolute;
+    width: 50%;
+    left: 0;
+}
+.typeLogo img{
+    width: 100%;
+    margin-top: 0em;
+    position: absolute;
+    bottom: -3.9em;
+}
+
+header nav{
+    
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav ul{
+    
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    margin-top: 2em;
+}
+nav ul li{
+    transition: all 100ms;
+    padding: 1.5em;
+    margin: 0.3em;
+}
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+}
+nav ul li:hover{
+    transform: scale(1.1);
+    margin-top: 5px;
+    font-weight: bold;
+}
+.login{
+    
+    width: 30%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login a{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+}
+.loginBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    
+}
+.loginBtn:hover{
+    transform: scale(1.1);
+    transition: all 200ms;
+    font-weight: bold;
+}
+.loginBtn img{
+    margin-right: 1em;
+}
+
+.hamburgerBtn{
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    display: none;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.hamburgerBtn:hover{
+    cursor: pointer;
+}
+.hamberMenu{
+    background-color: #606061;
+    z-index: 1;
+    height: 100vh;
+    transition: all 300ms;
+    overflow: hidden;
+    display: none;
+    width: 350px;
+}
+.hamberMenu ul{
+    list-style-type: none;
+    
+    padding: 0;
+}
+.hamberMenu ul li{
+    width: 100%;
+    padding: 1em ;
+}
+.hamberMenu ul li:hover{
+    background-color: #212529;
+    cursor: pointer;
+}
+.hamberMenu ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+.verticalSubMenu{
+    background-color:#212529;
+    display: none;
+}
+
+.subMenu a{
+    padding-right: 1em;
+}
+.safeNokhost{
+    position: relative;
+}
+.horizentalSubMenu{
+    position: absolute;
+    width: auto;
+    background-color: white;
+    height: auto;
+    box-shadow: 1px 12px 10px 2px #888888;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+}
+.horizentalSubMenu ul{
+    padding: 0 1em;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.horizentalSubMenu li{
+    padding: 0em 2em;
+    font-weight: 300;
+}
+.horizentalSubMenu li:hover{
+    font-weight: 900;
+}
+.closeBtn{
+    color: white;
+    padding: 0.5em 1em;
+    font-size: 1.8rem;
+}
+.logoCircle{
+    width: 300px;
+    height: 150px; /* as the half of the width */
+    background-color: #FBF9FB;
+    border-bottom-left-radius: 200px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 200px; /* 100px of height + 10px of border */
+    box-shadow: 1px 12px 10px 2px #888888;
+    margin-right: 3em;
+    display: flex;
+    justify-content: center;
+}
+.logoImage{
+    
+    width: 700px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+} 
+.logoImage img{
+    width: 220%;
+    position: absolute;
+    top: -18.5em;
+    left: -10em;
+    
+}
+
+
+
+
+main{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.slider{
+    width: 65vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5em;
+    position: relative;
+}
+.rightCircle{
+    position: absolute;
+    top: 50%;
+    transform: translate(100%, -50%);
+    height: 5em;
+    width: 2.5em;
+    border-radius: 0px 80px 80px 0;
+    background-color: white;
+    right: 0px;
+    box-shadow: 1px 8px 10px 2px #888888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.leftCircle{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-100%, -50%);
+    height: 5em;
+    width: 2.5em;
+    border-radius: 80px 0px 0px 80px;
+    background-color: white;
+    left: 0;
+    box-shadow: -1px 8px 10px 2px #888888;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.imageHolder{
+    padding: 0.7em 0.7em 0.5em 0.7em;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 8px 10px 5px #888888;
+}
+.imageHolder img{
+    width: 100%;
+    border-radius: 10px;
+}
+.leftCircle img{
+    transform: scale(0.6);
+}
+.rightCircle img{
+    transform: scale(0.6);
+}
+.leftCircle img:hover{
+    transform: scale(0.7);
+    transition: transform 300ms;
+}
+.rightCircle img:hover{
+    transform: scale(0.7);
+    transition: transform 300ms;
+}
+
+
+
+
+
+
+.aboutMe{
+    height: 32em;
+    position: relative;
+    z-index: 0;
+}
+.whiteBackground{
+    height: 17em;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-top: 3px solid #88153E;
+    transition: all 300ms;
+}
+.whiteCircle{
+    width: 300px;
+    height: 150px; /* as the half of the width */
+    background-color: white;
+    border-top-left-radius: 200px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 200px; /* 100px of height + 10px of border */
+    border: 3px solid #88153E;
+    border-bottom: 0;
+    position: absolute;
+    top: -8.05em;
+    margin-right: 15em;
+    z-index: 0;
+    transition: all 300ms;
+}
+.rectangle{
+    background-color: white;
+    width: 20em;
+    height: 1.95em;
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    transition: all 300ms;
+}
+.greenBackground{
+    height: 15.8em;
+    width: 100%;
+    background-color: #9AD8A3;
+    position: absolute;
+    bottom: 0;
+}
+
+.greenCircle{
+    width: 260px;
+    height: 130px; /* as the half of the width */
+    background-color: black;
+    border-top-left-radius: 250px;  /* 100px of height + 10px of border */
+    border-top-right-radius: 250px; /* 100px of height + 10px of border */
+    
+    background-color: #9AD8A3;
+    border-bottom: 0;
+    position: absolute;
+    top: -7.7em;
+    margin-right: 16.2em;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+}
+.greenCircle h3{
+    position: absolute;
+    bottom: -5px;
+    margin: 0;
+    font-size: 2.2rem;
+    text-align: center;
+    color: #88153E;
+}
+.aboutContent{
+    
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+.aboutCaption{
+    width: 60%;
+    
+}
+.aboutCaption p{
+    font-size: 1.5rem;
+    width: 80%;
+    margin-right: auto;
+    margin-left: 0;
+    
+}
+.personImage{
+    width: 45%;
+    
+    position: relative;
+}
+.personImage img{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    
+    
+}
+
+.whiteBackground:hover{
+    background-color: #88153E;
+    box-shadow: 0px 10px 10px 19px #88153E;
+}
+
+
+
+
+
+
+.learnings{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 93vw;
+    
+    margin: 0em auto 0em auto;
+    
+}
+.learnings h4{
+    font-size: 3.5rem;
+}
+.concepts{
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+}
+.conceptsRow{
+    
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+.concept{
+    width: 240px;
+    height: 240px;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    transition: transform 200ms, font-weight 50ms, box-shadow 100ms;
+} 
+.concept img{
+    width: 100%;
+    
+}
+.leadership, .bussiness{
+    
+    border: 3px solid #88153E;
+}
+.concept:hover{
+    transform: scale(1.1);
+    font-weight: 800;
+}
+
+.sales, .marketing{
+    border: 3px solid #3D8835;
+}
+.leadership:hover, .bussiness:hover{
+    border: 5px solid #88153E;
+}
+.sales:hover, .marketing:hover{
+    border: 5px solid #3D8835;
+}
+
+
+
+
+
+
+
+
+.offers{
+    margin-left: auto;
+    margin-right: auto;
+    width: 83vw;
+    padding-bottom: 2em;
+}
+.offers h4{
+    font-size: 2.5rem;
+    color: #88153E;
+    margin-right: 1.5em;
+}
+.offs{
+    display: flex;
+    flex-direction: row;
+    
+    justify-content: space-around;
+    
+}
+.offRows{
+    display: flex;
+    justify-content: space-around;
+    
+    width: 100%;
+}
+.offPackages{
+    width: 250px;
+    position: relative;
+    border-radius: 40px;
+    padding: 0;
+    transition: margin-top 200ms;
+}
+.offPackages:hover{
+    cursor: pointer;
+    margin-top: -0.5em;
+}
+.offPackages img{
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+}
+.percent{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: orange;
+    height: 60px;
+    width: 60px;
+    margin: 0;
+    border-radius: 0 10px 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5em;
+    color: white;
+    
+}
+.nameOfPackage{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background-color: rgb(71, 71, 71);
+    padding: 0.8em 1.5em;
+    opacity: 0.7;
+    color: white;
+    border-radius: 10px 0 0 0;
+}
+.captions{
+    background-color: white;
+    position: relative;
+    margin-top: -2.3em;
+    border-radius: 0 0 10px 10px;
+    padding: 0px 0.5em;
+    box-shadow: 0px 10px 8px #888888;
+}
+.captions h5{
+    font-size: 1.2rem;
+}
+.captions p:last-of-type{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    font-size: 1rem;
+    color: rgba(0, 255, 0, 0.6);
+    margin-left: 0.5em;
+}
+.captions p:nth-of-type(2){
+    position: absolute;
+    left: 0;
+    bottom: 0.3em;
+    font-size: 0.9rem;
+    text-decoration: line-through;
+    color: rgba(255, 0, 0, 0.6);
+    margin-left: 0.5em;
+}
+
+
+
+
+footer{
+    background-color: #212529;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.columns{
+    display: flex;
+    flex-direction: row;
+    
+}
+.columns h3{
+    color: green;
+    font-size: 1.5rem;
+}
+.companyLogo{
+    width: 25%;
+    height: 100%;
+   
+}
+.companyLogo img:first-of-type{
+    padding: 0;
+    margin: 0;
+    transform: scale(1.5);
+    margin-left: 0.4em;
+    margin-bottom: 0.5em;
+    height: 200px;
+    width: 100%;
+    transform: scale(2);
+    margin-bottom: -3em;
+    margin-top: 1em;
+}
+.companyLogo img:last-of-type{
+    padding: 0;
+    margin: 0;
+    transform: scale(1);
+    height: 180px;
+    width: 105%;
+}
+.about{
+    width: 25%;
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+}
+.contactUs{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.contactUs .socialIcons{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.socialIcons img{
+    width: 18%;
+}
+
+.brownBackground:hover{
+    background-color: brown;
+    transition: background-color 100ms;
+}
+.greenBackgroundIcon:hover{
+    background-color: green;
+    transition: background-color 100ms;
+}
+.iconRows{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.7em;
+    
+}
+.iconRows img{
+    background-color: lightgray;
+    margin: 0 0.5em 0em 0.2em;
+    border-radius: 5px;
+    height: 60px;
+    width: 60px;
+}
+.iconRows img:first-of-type{
+    margin-left: 1em;
+}
+.licens{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.licensImages{
+    display: flex;
+    flex-direction: column;
+}
+.licensImages img{
+    border-radius: 10px;
+    transform: scale(1);
+}
+.upperLicens{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.copyRights{
+    color: white;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: -3em;
+}
+.copyRights p{
+    font-size: 1.1rem;
+}
+
+.socialBtn{
+    height: 65px;
+    width: 65px;
+    border: 5px solid #FBF9FB;
+    background-color: #FBF9FB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 10px 8px #888888;
+    border-radius: 40px;
+    position: fixed;
+    bottom: 2em;
+    left: 3em;
+    transition: all 200ms;
+}
+.socials{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    transition: all 100ms;
+    margin: 0.5em;
+}
+.socials:hover{
+    transform: scale(1.1);
+}
+.instagram{
+    display: none;
+}
+.instagram img{
+    width: 100%;
+}
+
+.telegram{
+    width: 50px;
+    display: none;
+}
+.telegram img{
+    width: 100%;
+}
+
+
+@media (max-width: 800px){
+    .hamburgerBtn{
+        visibility: visible;
+    }
+    
+    .logoCircle{
+        transform: scale(0.7);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -1.6em;
+    }
+    .typeLogo{
+        right: 1.2em;
+        height: 15px;
+        transform: scale(1.3);
+        position: sticky;
+        top: 0;
+    }
+    nav ul{
+        display: none;
+    }
+    .loginBtn{
+        display: none;
+    }
+    .hamburgerBtn{
+        display: flex;
+        margin-top: 0.3em;
+    }
+    .rightCircle{
+        height: 50px;
+        width: 25px;
+    }
+    .leftCircle{
+        height: 50px;
+        width: 25px;
+    }
+    .rightCircle img, .leftCircle img{
+        transform: scale(0.4);
+    }
+    .leftCircle img:hover{
+        transform: scale(0.5);
+        transition: transform 200ms;
+    }
+    .rightCircle img:hover{
+        transform: scale(0.5);
+        transition: transform 200ms;
+    }
+    .aboutMe{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    
+    }
+    
+    .whiteBackground{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .whiteCircle{
+        margin: 0;
+    }
+    .greenBackground{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .greenCircle{
+        margin: 0;
+    }
+    .aboutCaption{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .aboutCaption p{
+        font-size: 1.2rem;
+        margin: 0;
+    }
+    .personImage img{
+        display: none;
+    }
+    .aboutContent{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .concepts{
+        display: flex;
+        flex-direction: column;
+    }
+    .concept{
+        transform: scale(0.8);
+    }
+    .concept:hover{
+        transform: scale(0.9);
+    }
+    .offs{
+        flex-direction: column;
+        justify-content: space-around;
+        
+        
+    }
+    .offRows{
+        
+        margin-bottom: 0.5em;
+        display: flex;
+        justify-content: space-around;
+    }
+    .offPackages{
+        transform: scale(0.8);
+    }
+
+
+
+    footer{
+        height: auto;
+    }
+    .columns{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .companyLogo{
+        width: 50%;
+    }
+    .about{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+    .contactUs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        margin-left: 4em;
+    }
+    .contactUs h3{
+        margin-left: 0;
+    }
+    .socialIcons img{
+        transform: scale(0.8);
+    }
+    .licensImages img{
+        transform: scale(0.8);
+    }
+    .copyRights{
+        margin-top: -2em;
+    }
+}

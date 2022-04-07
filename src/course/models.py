@@ -1,16 +1,18 @@
-from statistics import mode
 from django.db import models
 from blog.models import Category
 from ckeditor.fields import RichTextField
-from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .utilities.models_validatior import validate_video_extension
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class Course(models.Model):
     title = models.CharField(max_length=1024)
     detail = RichTextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.PROTECT)
+    desribe_video = models.FileField(upload_to="course/video", validators=[validate_video_extension], null=True, blank=True)
     amount = models.PositiveBigIntegerField(default=0)
     off = models.PositiveSmallIntegerField(
         default=0,
@@ -23,33 +25,32 @@ class Course(models.Model):
     date = models.DateTimeField(auto_now=True)
     is_expire = models.BooleanField(default=False)
 
-class Content(models.Model):
+class Season(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    title = models.CharField(max_length=1024)
+    detail = RichTextField()
+
+class Content(models.Model):
+    season = models.ForeignKey(Season, on_delete=models.CASCADE)
     main_image = models.ImageField(upload_to="content/image", null=True, blank=True)
     title = models.CharField(max_length=1024)
     detail = RichTextField(null=True, blank=True)
-    video = models.FileField(upload_to="course/video", validators=[validate_video_extension], null=True, blank=True)
-    date = models.DateTimeField(auto_now=True)
-
-class Commnet(models.Model):
-    name = models.CharField(max_length=256)
-    email = models.EmailField(null=True, blank=True)
-    user = models.ForeignKey(User, null=True, on_delete=models.PROTECT)
-    text = models.CharField(max_length=1024)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    parent = models.ForeignKey('self' , related_name='parent_comment', null=True, on_delete=models.CASCADE)
-    child = models.ForeignKey('self' , related_name='child_comment', null=True, on_delete=models.PROTECT)
+    video = models.FileField(upload_to="content/video", validators=[validate_video_extension], null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
 
 class Card(models.Model):
-    is_paid = models.BooleanField(default=False)
-    is_finished = models.BooleanField(default=False)
+    FREEZE = 'FR'
+    PAID = 'PD'
+    INPROCESS = 'IP'
+    CARD_STATUS = [
+        (FREEZE, 'FREEZE'),
+        (PAID, 'PAID'),
+        (INPROCESS, 'INPROCESS'),
+    ]
     courses = models.ManyToManyField(Course, blank=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
-
-
-    # def save(self, *args, **kwargs):
-    #     if self.id is None :
-    #         if Card.objects.filter(is_paid=False, user=self.user).count() > 0 :
-    #             return
-    #     super(Card, self).save(*args, **kwargs)
+    status = models.CharField(
+        max_length=2,
+        choices=CARD_STATUS,
+        default=INPROCESS,
+    )

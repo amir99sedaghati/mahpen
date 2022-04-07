@@ -22,7 +22,7 @@ urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/__debug__/', include('debug_toolbar.urls')),
     path('api/api-auth/', include('rest_framework.urls')),
-    path('api/blog/', include('blog.urls')),
+    path('', include('blog.urls')),
     path('api/content/', include('course.urls')),
     path('api/zarin/', include('zarinpal.urls')),
     path('api/user/', include('user_management.urls')),

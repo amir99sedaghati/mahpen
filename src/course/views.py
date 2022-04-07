@@ -16,11 +16,11 @@ from .models import (
 )
 
 class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.filter(is_expire=False)
     serializer_class = serializers.CourseSerializer
 
     def get_content_queryset(self, course_id):
-        return Content.objects.filter(course__id=course_id)
+        return Content.objects.filter(course__id=course_id, course__is_expire=False)
 
     def get_content_serializer(self):
         return serializers.ContentSerializer

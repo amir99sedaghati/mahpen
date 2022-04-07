@@ -12,3 +12,11 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Post
         fields = '__all__'
+
+class VideoSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    
+    class Meta:
+        model = models.Video
+        fields = '__all__'
+

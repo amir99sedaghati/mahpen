@@ -1,0 +1,133 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <div class="slider">
+            <div class="rightCircle" onclick="nextSlide()">
+                <img src="right.svg" alt="">
+            </div>
+            <div class="imageHolder">
+                <img src="product1.png" alt="product" id="slideImage">
+            </div>
+            <div class="leftCircle" onclick="previousSlide()">
+                <img src="left.svg" alt="">
+            </div>
+        </div>
+
+
+        <div class="aboutMe">
+            <div class="whiteBackground" onmouseover="shadowEffect()" onmouseleave="normalEffect()">
+                <div class="whiteCircle" id="whiteCircle">
+                    <div class="rectangle" id="rectangle"></div>
+                </div>
+                
+                <div class="greenBackground">
+                    <div class="greenCircle">
+                        <h3>دکتر<br/> حسین محمد نژاد</h3>
+                    </div>
+                    <div class="aboutContent">
+                        <div class="aboutCaption">
+                            <p>
+                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای      </p>
+                        </div>
+
+                        <div class="personImage">
+                            <img src="{% static 'images/dr.png'%}" alt="" srcset="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="learnings">
+            <h4>چی میخوای یاد بگیری؟</h4>
+            <div class="concepts">
+                <div class="conceptsRow">
+                    <div class="concept leadership">
+                        <p>مدیریت و رهبری</p>
+                        <img src="data.svg" alt="data">
+                    </div>
+                    <div class="concept marketing">
+                        <p>بازاریابی</p>
+                        <img src="social.svg" alt="data">
+                    </div>
+                </div>
+                <div class="conceptsRow">
+                    <div class="concept bussiness">
+                        <p>راه اندازی کسب و کار</p>
+                        <img src="success.svg" alt="data">
+                    </div>
+                    <div class="concept sales">
+                        <p>فروش</p>
+                        <img src="transfer.svg" alt="data">
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+
+
+        <div class="offers">
+            <h4>بیشنهاد ویژه</h4>
+            <div class="offs">
+                <div class="offRows">
+                    <div class="offPackages">
+                        <p class="percent">۲۰ ٪ تخفیف</p>
+                        <p class="nameOfPackage">بازاریابی</p>
+                        <img src="product1.png" alt="product1">
+                        <div class="captions">
+                            <h5>دوره جامع بازاریابی</h5>
+                            <p>حسین محمد نژاد</p>
+                            <p>تومان ۲۰۰/۰۰۰</p>
+                            <p>تومان ۱۶۰/۰۰۰</p>
+                        </div>
+                    </div>
+
+                    <div class="offPackages">
+                        <p class="percent">۲۰ ٪ تخفیف</p>
+                        <p class="nameOfPackage">بازاریابی</p>
+                        <img src="product2.png" alt="product1">
+                        <div class="captions">
+                            <h5>دوره جامع بازاریابی</h5>
+                            <p>حسین محمد نژاد</p>
+                            <p>تومان ۲۰۰/۰۰۰</p>
+                            <p>تومان ۱۶۰/۰۰۰</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="offRows">
+                    <div class="offPackages">
+                        <p class="percent">۲۰ ٪ تخفیف</p>
+                        <p class="nameOfPackage">بازاریابی</p>
+                        <img src="product2.png" alt="product1">
+                        <div class="captions">
+                            <h5>دوره جامع بازاریابی</h5>
+                            <p>حسین محمد نژاد</p>
+                            <p>تومان ۲۰۰/۰۰۰</p>
+                            <p>تومان ۱۶۰/۰۰۰</p>
+                        </div>
+                    </div>
+
+                    <div class="offPackages">
+                        <p class="percent">۲۰ ٪ تخفیف</p>
+                        <p class="nameOfPackage">بازاریابی</p>
+                        <img src="product3.png" alt="product1">
+                        <div class="captions">
+                            <h5>دوره جامع بازاریابی</h5>
+                            <p>حسین محمد نژاد</p>
+                            <p>تومان ۲۰۰/۰۰۰</p>
+                            <p>تومان ۱۶۰/۰۰۰</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'user_management',
     'debug_toolbar',
     'drf_yasg',
+    'colorfield',
 ]
 
 MIDDLEWARE = [
@@ -112,6 +113,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'user_management.User'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -150,6 +153,7 @@ ZARINPAL_CONFIGURATION = {
     'merchant_id' : 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX',  # Required
     # 'ZARINPAL_WEBSERVICE' : 'https://www.zarinpal.com/pg/services/WebGate/wsdl',  # Required
     'zarinpal_webservice' : 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
+    'start_pay' : 'https://sandbox.zarinpal.com/pg/StartPay/',
     'amount' : 1000,  # Amount will be based on Toman  Required
     'description' : u'توضیحات تراکنش تستی',  # Required
     'email' : 'user@userurl.ir',  # Optional
@@ -160,6 +164,7 @@ ZARINPAL_CONFIGURATION = {
 # rest framework configuration
 
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'blog.pagination.StandardResultsSetPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',

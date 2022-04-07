@@ -14,6 +14,7 @@ MMERCHANT_ID = ZARINPAL_CONFIGURATION.get("merchant_id")
 ZARINPAL_WEBSERVICE = ZARINPAL_CONFIGURATION.get("zarinpal_webservice")
 DESCRIPTION = ZARINPAL_CONFIGURATION.get("description")
 CALL_BACK_URL = ZARINPAL_CONFIGURATION.get("call_back_url")
+START_PAY = ZARINPAL_CONFIGURATION.get("start_pay")
 
 class PayViewSet(ViewSet):
     def card_queryset(self):
@@ -44,8 +45,7 @@ class PayViewSet(ViewSet):
                                             None,
                                             user_data_dictionary.get("call_back_url"))
         if result.Status == 100:
-            # return redirect('https://www.zarinpal.com/pg/StartPay/' + result.Authority)
-            return redirect('https://sandbox.zarinpal.com/pg/StartPay/' + result.Authority)
+            return redirect(START_PAY + result.Authority)
         else:
             return Response({'status' : 'شما تنظیمات درگاه زرین پال را به درستی انجام نداده اید'},
                     status=status.HTTP_502_BAD_GATEWAY)
