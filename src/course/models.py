@@ -31,7 +31,7 @@ class Course(models.Model):
         return convert_english_number_to_persian_number(self.off)
 
     def get_raw_amount(self):
-        raw_amount = int(self.amount - ( (20 / 100) * self.amount ))
+        raw_amount = int(self.amount - ( (self.off / 100) * self.amount ))
         return convert_english_number_to_persian_number(raw_amount)
 
     def persian_amount(self):
