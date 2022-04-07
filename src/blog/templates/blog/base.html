@@ -10,7 +10,7 @@
         {% block page-css%}
             <link rel="stylesheet" href="{% static 'css/style.css'%}">
         {% endblock %}
-        <title>{% block page-title%} First Page Content {% endblock %}</title>
+        <title>{% block page_title%} First Page Content {% endblock %}</title>
     </head>
 
     <body>
@@ -29,11 +29,11 @@
                     <div class="hamberLists">
                         <ul>
                             <li class="firstPage" onclick="openSubMenu()"><a href="#">صفحه نخست</a>
-                                <li class="verticalSubMenu"><a href="#">زاه اندازی کسب و کار</a></li>
-                                <li class="verticalSubMenu"><a href="#">بازاریابی</a></li>
-                                <li class="verticalSubMenu"><a href="#">فروش</a></li>
-                                <li class="verticalSubMenu"><a href="#">مدیریت و رهبری</a></li>
-                                <li class="verticalSubMenu"><a href="#">برندینگ</a></li>
+                                {% if categotories %}
+                                    {% for cateogry in categotories %}
+                                    <li class="verticalSubMenu"><a href="#">{{cateogry.title}}</a></li>
+                                    {% endfor %}
+                                {% endif %}
                             </li>
                             <li><a href="#">دوره های اموزشی</a></li>
                             <li><a href="#">نظرات</a></li>
@@ -50,15 +50,15 @@
                 <nav class="topNav">
                     <ul>
                         <li class="safeNokhost" onmouseover="showSubMenu()" onmouseout="hideSubMenu()"><a href="#">صفحه نخست</a>
+                            {% if categotories %}
                                 <div class="horizentalSubMenu">
                                     <ul>
-                                        <li><a href="#">زاه اندازی کسب و کار</a></li>
-                                        <li><a href="#">بازاریابی</a></li>
-                                        <li><a href="#">فروش</a></li>
-                                        <li><a href="#">مدیریت و رهبری</a></li>
-                                        <li><a href="#">برندینگ</a></li>  
+                                        {% for cateogry in categotories %}
+                                        <li><a href="#">{{cateogry.title}}</a></li>
+                                        {% endfor %}
                                     </ul>  
                                 </div>
+                            {% endif %} 
                         </li>
                         <li><a href="#">دوره های اموزشی</a></li>
                         <li><a href="#">نظرات</a></li>
@@ -146,7 +146,7 @@
             </div>
         </div>
 
-        {% block page-js %}
+        {% block page_js %}
             <script src="{% static 'js/main.js' %}"></script>
         {% endblock %}
 

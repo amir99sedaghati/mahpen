@@ -17,13 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken import views
 from rest_framework.schemas import get_schema_view
+from django.conf import settings
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/__debug__/', include('debug_toolbar.urls')),
     path('api/api-auth/', include('rest_framework.urls')),
     path('', include('blog.urls')),
-    path('api/content/', include('course.urls')),
+    path('', include('course.urls')),
     path('api/zarin/', include('zarinpal.urls')),
     path('api/user/', include('user_management.urls')),
     path('api/user/get-token/', views.obtain_auth_token),
@@ -58,3 +59,11 @@ urlpatterns += [
    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
+
+if settings.DEBUG :
+    from django.conf.urls.static import static
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+    # Serve static and media files from development server
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

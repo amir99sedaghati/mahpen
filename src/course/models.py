@@ -3,6 +3,7 @@ from blog.models import Category
 from ckeditor.fields import RichTextField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .utilities.models_validatior import validate_video_extension
+from common.tools import convert_english_number_to_persian_number
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -10,6 +11,7 @@ User = get_user_model()
 class Course(models.Model):
     title = models.CharField(max_length=1024)
     detail = RichTextField()
+    is_promote = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     teacher = models.ForeignKey(User, on_delete=models.PROTECT)
     desribe_video = models.FileField(upload_to="course/video", validators=[validate_video_extension], null=True, blank=True)
@@ -21,9 +23,19 @@ class Course(models.Model):
             MinValueValidator(0),
         ]
     )
-    image = models.ImageField(upload_to="course/image", null=True, blank=True)
+    image = models.ImageField(upload_to="course/image")
     date = models.DateTimeField(auto_now=True)
     is_expire = models.BooleanField(default=False)
+
+    def persian_off(self):
+        return convert_english_number_to_persian_number(self.off)
+
+    def get_raw_amount(self):
+        raw_amount = int(self.amount - ( (20 / 100) * self.amount ))
+        return convert_english_number_to_persian_number(raw_amount)
+
+    def persian_amount(self):
+        return convert_english_number_to_persian_number(self.amount)
 
 class Season(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)

@@ -1,22 +1,3 @@
-//slider
-let images = ["product1.png", "product2.png", "product3.png"];
-let slideCounter = 0;
-
-const nextSlide = () => {
-    slideCounter++;
-    if(slideCounter == 3){
-        slideCounter = 0;
-    }
-    document.getElementById('slideImage').src = images[slideCounter];
-}
-const previousSlide = () => {
-    slideCounter--;
-    if(slideCounter == -1){
-        slideCounter = 2;
-    }
-    document.getElementById('slideImage').src = images[slideCounter];
-}
-
 
 let whiteCircle = document.getElementById('whiteCircle');
 let rectangle = document.getElementById('rectangle');

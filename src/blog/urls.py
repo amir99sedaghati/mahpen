@@ -7,7 +7,7 @@ urlpatterns = [
 ]
 
 router = DefaultRouter()
-router.register(r'blog/category', views.CategoryViewSet, basename='category')
-router.register(r'blog/video', views.VideoViewSet, basename='video')
-router.register(r'blog/post', views.PostViewSet, basename='post')
+router.register(r'category', views.CategoryViewSet, basename='category')
+router.register(r'video', views.VideoViewSet, basename='video')
+router.register(r'post', views.PostViewSet, basename='post')
 urlpatterns += router.urls

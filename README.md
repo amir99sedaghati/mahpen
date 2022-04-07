@@ -17,4 +17,5 @@
 - [x] connect gateway to payment card
 - [x] user premission for see course
 - [x] should we have model pay?
-
+- [ ] validator for input valid price course
+- [ ] links in pages 
