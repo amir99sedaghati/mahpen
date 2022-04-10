@@ -20,11 +20,10 @@ from django.conf import settings
 urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/__debug__/', include('debug_toolbar.urls')),
-    path('api/api-auth/', include('rest_framework.urls')),
     path('', include('blog.urls')),
-    path('', include('course.urls')),
+    path('card/', include('course.urls')),
     path('user/', include('user_management.urls')),
-    path('', include('zarinpal.urls')),
+    path('card/', include('zarinpal.urls')),
 ]
 
 # permission based handler

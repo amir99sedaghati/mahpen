@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework.authtoken',
     'ckeditor',
     'blog',
     'course',
@@ -161,14 +159,4 @@ ZARINPAL_CONFIGURATION = {
     'email' : 'user@userurl.ir',  # Optional
     'mobile' : '09123456789',  # Optional
     'call_back_url' : 'http://127.0.0.1:8000',
-}
-
-# rest framework configuration
-
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'blog.pagination.StandardResultsSetPagination',
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ]
 }
