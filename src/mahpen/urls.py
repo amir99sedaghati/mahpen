@@ -24,7 +24,7 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('', include('course.urls')),
     path('user/', include('user_management.urls')),
-    path('api/zarin/', include('zarinpal.urls')),
+    path('', include('zarinpal.urls')),
 ]
 
 # permission based handler

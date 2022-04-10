@@ -1,10 +1,7 @@
 from . import views
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
 urlpatterns = [
+    path('card/<int:pk>/pay/', views.PayView.as_view(), 'card-pay'),
+    path('card/<int:pk>/callback/', views.CallBackView.as_view(), 'callback-pay')
 ]
-
-
-router = DefaultRouter()
-router.register(r'', views.PayViewSet, basename='pay')
-urlpatterns += router.urls

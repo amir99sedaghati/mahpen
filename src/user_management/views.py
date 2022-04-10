@@ -19,7 +19,13 @@ class SignUpView(permissions.IsAnnonymous, CreateView):
         user = authenticate(username=self.object.username, password=self.object.password)
         if user is not None :
             login(self.request, user)
+            if self.check_paid_card_status():
+                # TODO : send message for change status
+                pass
         return response
+    
+    def check_paid_card_status(self):
+        return False
 
 class LoginView(permissions.IsAnnonymous, auth_views.LoginView):
     template_name='user_management/login.html'

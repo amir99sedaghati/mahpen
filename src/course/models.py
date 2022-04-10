@@ -30,8 +30,11 @@ class Course(models.Model):
     def persian_off(self):
         return convert_english_number_to_persian_number(self.off)
 
+    def get_amount(self):
+        return int(self.amount - ( (self.off / 100) * self.amount ))
+
     def get_raw_amount(self):
-        raw_amount = int(self.amount - ( (self.off / 100) * self.amount ))
+        raw_amount = self.get_amount()
         return convert_english_number_to_persian_number(raw_amount)
 
     def persian_amount(self):
@@ -66,3 +69,12 @@ class Card(models.Model):
         choices=CARD_STATUS,
         default=INPROCESS,
     )
+
+    def calculate_amount(self):
+        return sum( course.get_amount() for course in self.courses.all() )
+    
+    def change_status(self, status):
+        self.__class__.objects.update(
+            status=status,
+        )
+        
