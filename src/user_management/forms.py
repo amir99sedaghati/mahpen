@@ -19,7 +19,7 @@ class UserSignUpForm(forms.ModelForm):
     def clean(self):
         super().clean()
         if self.data.get('password') != self.data.get('repeat_password') :
-            raise forms.ValidationError('Password 1 & 2 should be equal.')
+            raise forms.ValidationError('رمز های عبور باید مشابه یکدیگر باشند .')
     
     def save(self, commit=True):
         user = super().save(commit=False)

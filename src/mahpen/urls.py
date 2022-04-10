@@ -27,6 +27,11 @@ urlpatterns = [
     path('api/zarin/', include('zarinpal.urls')),
 ]
 
+# permission based handler
+from user_management.handlers import Handler
+handler403 = Handler.as_view()
+# handler404 = Handler.as_view()
+
 if settings.DEBUG :
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
