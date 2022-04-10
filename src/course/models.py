@@ -27,6 +27,12 @@ class Course(models.Model):
     date = models.DateTimeField(auto_now=True)
     is_expire = models.BooleanField(default=False)
 
+    def get_amount_without_off(self):
+        return self.amount
+    
+    def persian_amount_without_off(self):
+        return convert_english_number_to_persian_number(self.get_amount_without_off())
+
     def persian_off(self):
         return convert_english_number_to_persian_number(self.off)
 
@@ -70,8 +76,30 @@ class Card(models.Model):
         default=INPROCESS,
     )
 
+    def __str__(self):
+        return f"{self.__class__.__name__}({self.id} , {self.user.username}, {self.status})"
+
+    def save(self, *args, **kwargs):
+        if self.pk is None :
+            cards = Card.objects.exclude(status=self.PAID).filter(user=self.user)
+            if cards.exists():
+                return
+        return super().save(*args, **kwargs)
+    
+    def courses_count(self):
+        return self.courses.count()
+    
+    def calculate_amount_without_off(self):
+        return sum( course.get_amount_without_off() for course in self.courses.all() )
+
     def calculate_amount(self):
         return sum( course.get_amount() for course in self.courses.all() )
+    
+    def persian_amount_without_off(self):
+        return convert_english_number_to_persian_number(self.calculate_amount_without_off())
+
+    def persian_amount(self):
+        return convert_english_number_to_persian_number(self.calculate_amount())
     
     def change_status(self, status):
         self.__class__.objects.update(

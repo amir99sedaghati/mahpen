@@ -42,9 +42,9 @@
         </div>
 
         {% if promoted_categotories %}
-            <div class="learnings">
+            <div class="learnings mt-5 mb-5">
                 <h4>چی میخوای یاد بگیری؟</h4>
-                <div class="concepts">
+                <div class="concepts mt-3">
                     {% for cateogry in promoted_categotories %}
                         <div class="conceptsRow">
                             <div class="concept {% cycle 'leadership' 'marketing' %}">
@@ -58,13 +58,13 @@
         {% endif %}
 
         {% if offers %}
-            <div class="offers">
+            <div class="offers mb-5 mt-2">
                 <h4>بیشنهاد ویژه</h4>
                 <div class="offs">
                     <div class="offRows">
                         {% for offer in offers %}
                             <div class="offPackages">
-                                <a href="{% url 'course-detail' offer.pk %}">
+                                <a>
                                     <p class="percent">{{offer.persian_off}} ٪ تخفیف</p>
                                     <p class="nameOfPackage">{{ offer.category.title }}</p>
                                     <img src="{% get_media_prefix %}{{offer.image}}" alt="{{ offer.title }}">

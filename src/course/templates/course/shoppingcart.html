@@ -1,85 +1,13 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.js" integrity="sha512-TsDUjQW16/G8fz4gmgTOBW2s2Oi6TPUtQ6/hm+TxZZdkQtQrK5xEFIE0rgDuz5Cl1xQU1u3Yer7K5IuuBeiCqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="shoppingcart.css">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block page_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/shoppingcart.css' %}">
+{% endblock %}
     
-    <header>
-        <div class="hamburgerBtn" onclick="openHamburger()">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-        <div class="hamberMenu">
-            <div class="close">
-                <div class="closeBtn" onclick="closeHamburger()">
-                    <i class="fa-solid fa-xmark"></i>
-                </div>
-            </div>
-            <div class="hamberLists">
-                <ul>
-                    <li class="firstPage" onclick="openSubMenu()"><a href="#">صفحه نخست</a>
-                        <li class="verticalSubMenu"><a href="#">زاه اندازی کسب و کار</a></li>
-                        <li class="verticalSubMenu"><a href="#">بازاریابی</a></li>
-                        <li class="verticalSubMenu"><a href="#">فروش</a></li>
-                        <li class="verticalSubMenu"><a href="#">مدیریت و رهبری</a></li>
-                        <li class="verticalSubMenu"><a href="#">برندینگ</a></li>
-                    </li>
-                    <li><a href="#">دوره های اموزشی</a></li>
-                    <li><a href="#">نظرات</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="headerLogo">
-            <div class="typeLogo">
-                <img src="logotypefa.svg" alt="logotypeen">
-            </div>
-            
-            
-        </div>
-        <nav class="topNav">
-            <ul>
-                <li class="safeNokhost" onmouseover="showSubMenu()" onmouseout="hideSubMenu()"><a href="#">صفحه نخست</a>
-                        <div class="horizentalSubMenu">
-                            <ul>
-                                <li><a href="#">زاه اندازی کسب و کار</a></li>
-                                <li><a href="#">بازاریابی</a></li>
-                                <li><a href="#">فروش</a></li>
-                                <li><a href="#">مدیریت و رهبری</a></li>
-                                <li><a href="#">برندینگ</a></li>  
-                            </ul>  
-                        </div>
-                </li>
-                <li><a href="#">دوره های اموزشی</a></li>
-                <li><a href="#">نظرات</a></li>
-            </ul>
-        </nav>
-        <div class="shoppingIcon">
-            <div>
-                <p></p>
-            <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-            
-        </div>
-        <div class="login">
-            <div class="loginBtn">
-                <a href="#">ورود / عضویت</a>
-                <img src="user.svg" alt="user">
-            </div>
-        </div>
-        
-    </header>
-    <div class="logoCircle">
-        <div class="logoImage">
-            <img src="logo.svg" alt="logo">
-        </div>
-    </div>
-
-    <main>
+{% block content %}
+{{card}}
+    <main class="mb-5 container-fluid">
         <h1>لیست سبد خرید</h1>
         <table id="table">
             <tr class="tableHead">
@@ -87,109 +15,51 @@
               <th>قیمت دوره</th>
               <th>قیمت دوره با تخفیف</th>
             </tr>
-            <tr>
-                <td>دوره جامع بازاریابی</td>
-                <td>۲۰۰/۰۰۰ تومان</td>
-                <td>۱۶۰/۰۰۰ تومان</td>
-            </tr>
-            <tr>
-                <td>مجموع</td>
-                <td>۲۰۰/۰۰۰ تومان</td>
-                <td>۱۶۰/۰۰۰ تومان</td>
-            </tr>
-              
-          </table>
-          <div class="counting">
-            <div class="discount">
-                <p>کد تخفیف</p>
-                <input type="text" id="discountCode">
-                <button>ثبت</button>
-            </div>
-            <div class="buy">
-                <p>قیمت نهایی (تومان)</p>
-                <div class="finalPrice">......</div>
-                <button onclick="showPage()">پرداخت</button>
-            </div>
-          </div>
+            {% for course in card.courses.all %}
+                <tr>
+                    <td>{{course.title}}</td>
+                    <td>{{course.persian_amount_without_off}}</td>
+                    <td>{{course.get_raw_amount}}</td>
+                </tr>
+            {% endfor %}
+            {% if not card.courses_count == 0 %}
+                    <tr>
+                        <td>مجموع</td>
+                        <td>{{card.persian_amount_without_off}}</td>
+                        <td>{{card.persian_amount}}</td>
+                    </tr>
+                    
+                </table>
+                <div class="counting">
+                    <div class="discount">
+                        <p>کد تخفیف</p>
+                        <input class="m-4" type="text" id="discountCode">
+                        <button>ثبت</button>
+                    </div>
+                    <div class="buy">
+                        <p>قیمت نهایی (تومان)</p>
+                        <div class="finalPrice m-4">......</div>
+                        <button onclick="showPage()">پرداخت</button>
+                    </div>
+                </div>
 
-          <div class="paymentPage" id="paymentPage" onclick="hidePage()" >
-              <div class="paymentMethods">
-                  <button class="onlinePayment">برداخت آنلاین</button>
-                  <button class="walletPayment">برداخت از کیف بول</button>
-              </div>
-          </div>
-
-
-
-          <div class="socialBtn" onmouseover="showAllSocialMedias()" onmouseleave="hideSocialMedias()" id="socialBtn">
-            <div class="socials instagram" id="instagram">
-                <img src="insta.svg" alt="insta">
-            </div>
-            <div class="socials telegram" id="telegram">
-                <img src="tele.svg" alt="insta">
-            </div>
-            <div class="socials whatsapp">
-                <img src="whats.svg" alt="insta">
-            </div>
-           </div>
-
-
+                <div class="paymentPage" id="paymentPage" onclick="hidePage()" >
+                    <div class="paymentMethods">
+                        <button class="onlinePayment">برداخت آنلاین</button>
+                        <button class="walletPayment">برداخت از کیف بول</button>
+                    </div>
+                </div>
+            {% else %}
+                </table>
+                <p class="mt-3">سبد خرید شما خالی است.</p>
+                <a class="btn btn-primary w-25" href="/" role="button">ادامه مشاهده محصولات</a>
+            {% endif %}
+            
 
     </main>
+{% endblock content %}
 
-
-
-
-    <footer>
-        <div class="columns">
-            <div class="companyLogo">
-                <img src="logo.svg" alt="logo">
-                <img src="logotypeen.svg" alt="logotypeen">
-            </div>
-            <div class="about">
-                <h3>مهبن چیست ؟</h3>
-                <p>
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
-            </div>
-            <div class="contactUs">
-                <h3>ارتباط با ما</h3>
-                <div class="socialIcons">
-                    <div class="iconRows">
-                        <img src="phone.svg" alt="phone" class="brownBackground">
-                        <img src="location.svg" alt="location" class="greenBackgroundIcon">
-                    </div>
-                    <div class="iconRows">
-                        <img src="email.svg" alt="email" class="greenBackgroundIcon">
-                        <img src="instagram.svg" alt="instagram" class="brownBackground">   
-                    </div>
-                    <div class="iconRows">
-                        <img src="whatsapp.svg" alt="whatsapp" class="brownBackground">
-                        <img src="telegram.svg" alt="telegram" class="greenBackgroundIcon"> 
-                    </div>
-                </div>
-            </div>
-            <div class="licens">
-                <h3>مجوزها</h3>
-                <div class="licensImages">
-                    <div class="upperLicens">
-                        <img src="enamadsmall.png" alt="enamadsmall">
-                        <img src="etehadie.png" alt="etehadie">
-                    </div>
-                    <div>
-                    <img src="sabt.png" alt="sabt">
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="copyRights">
-            <p>تمام حقوق مادی و معنوی این وبسایت متعلق به مهبن میباشد.</p>
-            <i class="fa-solid fa-copyright"></i>
-        </div>
-    </footer>
-
-
-
-    <script src="shoppingcart.js"></script>
-</body>
-</html>
+{% block page_js %}
+    {{block.super}}
+    <script src="{% static 'js/shoppingcart.js' %}"></script>
+{% endblock %}

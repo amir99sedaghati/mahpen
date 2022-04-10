@@ -76,35 +76,7 @@ nav ul li:hover{
     margin-top: 5px;
     font-weight: bold;
 }
-.shoppingIcon{
-    
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0.8em;
-    margin-left: -3.5em;
-    z-index: 1;
-}
-.fa-cart-shopping{
-    cursor: pointer;
-    padding: 0;
-    padding-top: 0.2em;
-    margin: 0;
-}
-.shoppingIcon p{
-    padding: 0;
-    margin: 0;
-    
-}
-.shoppingIcon div{
-    width: 100%;
-    display: flex;
-    padding: 0.5em 1em;
-}
-.shoppingIcon div:hover{
-    transform: scale(1.3);
-}
+
 .login{
     
     width: 30%;
@@ -606,12 +578,6 @@ footer{
     .hamburgerBtn{
         display: flex;
         margin-top: 0.3em;
-    }
-    .shoppingIcon{
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding-top: 1em;
-        margin-left: -7em;
     }
     table{
         width: 90vw;
