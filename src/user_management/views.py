@@ -32,3 +32,5 @@ class LoginView(permissions.IsAnnonymous, auth_views.LoginView):
     next_page = '/'
     permission_message = 'برای ورود به حساب کاربری دیگر ابتدا باید از حساب کاربری فعلی خارج شوید .'
 
+class ProfielView(CreateView):
+    pass

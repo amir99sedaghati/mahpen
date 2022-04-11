@@ -1,9 +1,13 @@
+from email.policy import default
 from django.db import models
 from blog.models import Category
 from ckeditor.fields import RichTextField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from .utilities.models_validatior import validate_video_extension
 from common.tools import convert_english_number_to_persian_number
+from django.utils.timezone import now
+from django.db.models import UniqueConstraint, Q
+from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -70,21 +74,41 @@ class Card(models.Model):
     ]
     courses = models.ManyToManyField(Course, blank=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
+    time_created = models.DateTimeField(default=now)
+    time_change_status = models.DateTimeField(default=now)
     status = models.CharField(
         max_length=2,
         choices=CARD_STATUS,
         default=INPROCESS,
     )
 
+    class Meta :
+        constraints = [
+            UniqueConstraint(
+                fields=[
+                    'user',
+                ],
+                condition=Q(status='IP') | Q(status='FR'),
+                name='unique_active_card',
+            ),
+        ]
+
     def __str__(self):
         return f"{self.__class__.__name__}({self.id} , {self.user.username}, {self.status})"
-
-    def save(self, *args, **kwargs):
-        if self.pk is None :
-            cards = Card.objects.exclude(status=self.PAID).filter(user=self.user)
-            if cards.exists():
-                return
-        return super().save(*args, **kwargs)
+    
+    @classmethod
+    def current_card(cls, request):
+        queryset = cls.objects.exclude(status=cls.PAID).prefetch_related('courses')
+        card, is_created = queryset.get_or_create(user=request.user)
+        return card, is_created
+    
+    def add_course(self, course_id):
+        course = get_object_or_404(Course.objects.filter(id=course_id))
+        self.courses.add(course)
+    
+    def delete_course(self, course_id):
+        course = get_object_or_404(Course.objects.filter(id=course_id))
+        self.courses.remove(course)
     
     def courses_count(self):
         return self.courses.count()
@@ -102,7 +126,8 @@ class Card(models.Model):
         return convert_english_number_to_persian_number(self.calculate_amount())
     
     def change_status(self, status):
-        self.__class__.objects.update(
-            status=status,
-        )
+        self.status = status
+        self.time_change_status = now()
+        self.save()
+
         

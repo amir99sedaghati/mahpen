@@ -21,7 +21,7 @@ urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/__debug__/', include('debug_toolbar.urls')),
     path('', include('blog.urls')),
-    path('card/', include('course.urls')),
+    path('', include('course.urls')),
     path('user/', include('user_management.urls')),
     path('card/', include('zarinpal.urls')),
 ]

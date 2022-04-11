@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'colorfield',
     'voucher',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -161,3 +162,5 @@ ZARINPAL_CONFIGURATION = {
     'mobile' : '09123456789',  # Optional
     'call_back_url' : 'http://127.0.0.1:8000',
 }
+
+LOGIN_URL = '/user/login/'

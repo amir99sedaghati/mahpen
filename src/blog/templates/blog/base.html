@@ -37,7 +37,7 @@
                                     {% endfor %}
                                 {% endif %}
                             </li>
-                            <li><a href="#">دوره های اموزشی</a></li>
+                            <li><a href="{% url 'course-list' %}">دوره های اموزشی</a></li>
                             <li><a href="#">نظرات</a></li>
                         </ul>
                     </div>
@@ -62,7 +62,7 @@
                                 </div>
                             {% endif %} 
                         </li>
-                        <li><a href="#">دوره های اموزشی</a></li>
+                        <li><a href="{% url 'course-list' %}">دوره های اموزشی</a></li>
                         <li><a href="#">نظرات</a></li>
                     </ul>
                 </nav>
@@ -78,11 +78,11 @@
                 <div class="login">
                     <div class="loginBtn">
                         {% if user.is_authenticated %}
-                            <a href="/user/profile/">مشاهده پروفایل</a>
-                            <a href="{% url 'user-log-out' %}"><img src="{% static 'images/user.svg' %}" alt="خارج شدن از حساب کاربری"></a>
+                            <a href="{% url 'user-profile' %}">مشاهده پروفایل</a>
+                            <a href="{% url 'user-log-out' %}"><img width="32px" height="32px" src="{% static 'images/logout.svg' %}" alt="خارج شدن از حساب کاربری"></a>
                         {% else %}
-                            <a href="{% url 'user-sign-up' %}">ورود / عضویت</a>
-                            <a href="{% url 'user-sign-up' %}"><img src="{% static 'images/user.svg' %}" alt="ورود / عضویت"></a>
+                            <a href="{% url 'user-login' %}">ورود / عضویت</a>
+                            <a href="{% url 'user-login' %}"><img src="{% static 'images/user.svg' %}" alt="ورود / عضویت"></a>
                         {% endif %}
                     </div>
                     
@@ -152,13 +152,13 @@
 
         <div class="socialBtn" onmouseover="showAllSocialMedias()" onmouseleave="hideSocialMedias()" id="socialBtn">
             <div class="socials instagram" id="instagram">
-                <img src="{% static 'images/insta.svg' %}" alt="insta">
+                <a href="https://insta.com"><img src="{% static 'images/insta.svg' %}" alt="insta"></a>
             </div>
             <div class="socials telegram" id="telegram">
-                <img src="{% static 'images/tele.svg' %}" alt="telegram">
+                <a href="https://telegram.com"><img src="{% static 'images/tele.svg' %}" alt="telegram"></a>
             </div>
             <div class="socials whatsapp">
-                <img src="{% static 'images/whats.svg' %}" alt="whatsapp">
+                <a href="https://whatsapp.com"><img src="{% static 'images/whats.svg' %}" alt="whatsapp"></a>
             </div>
         </div>
 

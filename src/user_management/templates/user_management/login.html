@@ -8,19 +8,19 @@
 
 {% block content %}
 
-<div class="mt-5 mb-5 container">
-    
-    {% if next %}
-        {% if user.is_authenticated %}
-        <p>Your account doesn't have access to this page. To proceed,
-        please login with an account that has access.</p>
-        {% else %}
-        <p>Please login to see this page.</p>
-        {% endif %}
-    {% endif %}
-    
+<div class="mt-5 mb-5 container">    
     
     <form method="post" action="{% url 'user-login' %}">
+        {% if next %}
+            {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+            {% else %}
+            <div class="alert alert-danger m-2">
+                <strong>ابتدا وارد سایت شوید،‌ سپس میتوانید از صفحه مربوطه دیدن کنید .</strong>
+            </div>
+            {% endif %}
+        {% endif %}
         {% if form.errors %}
         <div class="alert alert-danger m-2">
             <strong>نام کاربری یا رمز عبور شما نادرست است، لطفا دوباره تلاش کنید .</strong>
@@ -42,7 +42,7 @@
         
         <div class="p-2"><input class="btn btn-primary" type="submit" value="ثبت"></div>
         <input type="hidden" name="next" value="{{ next }}">
-        <div class="text-align-center p-2">
+        <div style="text-align: center;" class="text-align-center p-2">
                 <p>حساب کاربری ندارید ؟ <a style="text-decoration: none;" href="{% url 'user-sign-up' %}">ایجاد حساب کاربری</a></p>
             </div>
     </form>

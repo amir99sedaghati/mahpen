@@ -2,7 +2,8 @@
 form{
     flex-direction: column;
     padding: 0 7em;
-    
+    text-align: left;
+    direction: ltr;
     /* width: 50%; */
     
 }
