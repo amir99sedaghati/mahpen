@@ -17,6 +17,14 @@
 
     <body>
 
+        {% block message_show %}
+        {% for message in messages %}
+        <div style="margin-bottom: 0; border-radius: 0;" class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            <strong>{{ message }}</strong>
+        </div>
+        {% endfor %}
+        {% endblock message_show %}
+
         {% block header %}
             <header>
                 <div class="hamburgerBtn" onclick="openHamburger()">
