@@ -86,7 +86,7 @@
                 <div class="login">
                     <div class="loginBtn">
                         {% if user.is_authenticated %}
-                            <a href="{% url 'user-profile' %}">مشاهده پروفایل</a>
+                            <a href="{% url 'user-profile' %}">{{user.full_name}}</a>
                             <a href="{% url 'user-log-out' %}"><img width="32px" height="32px" src="{% static 'images/logout.svg' %}" alt="خارج شدن از حساب کاربری"></a>
                         {% else %}
                             <a href="{% url 'user-login' %}">ورود / عضویت</a>

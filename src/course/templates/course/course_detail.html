@@ -1,0 +1,113 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block page_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/dore.css' %}">
+{% endblock %}
+
+{% block header %}
+{% if buyed_course %}
+    <div style="margin-bottom: 0; border-radius: 0;" class="alert alert-danger">
+        <strong>شما قبلا این دوره را خریداری کرده اید. برای دیدن محتوا آن میتوانید به پروفایل خود مراجعه کنید .</strong>
+    </div>
+{% endif %}
+{% if carded_course %}
+    <div style="margin-bottom: 0; border-radius: 0;" class="alert alert-danger">
+        <strong>شما قبلا این دوره را در سبد خرید خود ثبت کرده اید. برای حذف و یا نهایی کردن خرید به بخش سبد خرید مرجعه کنید .</strong>
+    </div>
+{% endif %}
+{{block.super}}
+{% endblock header %}
+
+{% block content %}
+    <main>
+        <div class="tutorial">
+            <h1>{{course.title}}</h1>
+            <div class="tutorialImage mt-3 mb-5">
+                <img src="{% get_media_prefix%}{{course.image}}" alt="{{course.title}}">
+            </div>
+            <div class="tutorialInfos mb-4">
+                <div class="tag teacherTag">
+                    <div class="tagImage teacherImage">
+                        <div class="greenBackgroundTag">
+                            <img src="{% if course.teacher.user_profile %}{% get_media_prefix%}course.teacher.user_profile{% else %}{% static 'images/user_default.png' %}{% endif%}" alt="avatar">
+                        </div>
+                    </div>
+                    <p>{{course.teacher_name}}</p>
+                </div>
+                <div class="tag timeTag">
+                    <div class="tagImage timeImage">
+                        <div class="greenBackgroundTag">
+                            <img src="{% static 'images/hourglass_time_icon.svg' %}" alt="{{course.title}}">
+                        </div>
+                    </div>
+                    <p>با ۲۳۶ دقیقه آموزش</p>
+                </div>
+                <div class="tag playTag">
+                    <div class="tagImage playImage">
+                        <div class="greenBackgroundTag playGreenBackground">
+                            <img src="{% static 'images/play_icon.svg' %}" alt="{{course.title}}">
+                        </div>
+                    </div>
+                    <p>در {{course.season_counter}} فصل و {{course.content_counter}} اپیزود</p>
+                </div>
+            </div>
+            <div class="tutorialCaption row mb-4">
+                <div class="aboutTutorial col-6">
+                    <h2>توضیحات دوره</h2>
+                    <p>{{course.detail  | safe }}</p>
+                </div>
+                <div class="introVideo col-6">
+                    <img src="" alt="{{course.title}}">
+                    <p>ویدیو معرفی دوره</p>
+                </div>
+            </div>
+            {% if not buyed_course and not carded_course %}
+                <div class="tutorialPrice">
+                    <div class="price">
+                        <p class="newPrice">{{course.get_raw_amount}}</p>
+                        <p class="oldPrice">{{course.persian_amount_without_off}}</p>
+                    </div>
+                    <a style="text-decoration: none;" href="{% url 'add-course-to-card' course.id %}">
+                        <div class="addToCart">
+                            <p>افزودن به سبد خرید</p>
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if course.list_of_supported_course %}
+            <div class="boughtTutuorials">
+                <h3>دوره‌های خریداری شده همراه با این دوره</h3>
+                {% for supported_course in course.list_of_supported_course %}
+                    <div class="otherTutorials mb-2 mt-2">
+                        <a href="{% url 'course-detail' supported_course.id %}">
+                            <div class="product">
+                                <div class="heading">
+                                    <img src="{% get_media_prefix%}{{supported_course.image}}" alt="{{supported_course.title}}">
+                                    <p>{{supported_course.category.title}}</p>
+                                </div>
+                                <div class="productCaption">
+                                    <strong class="p-2" style="color: black;">{{supported_course.title}}</strong>
+                                    <div class="nameAndPrice mt-3">
+                                        <p style="color: black;">{{supported_course.teacher_name}}</p>
+                                        <p>{{supported_course.persian_amount_without_off}} تومان</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif%}
+
+    </main>
+{% endblock %}
+
+
+{% block page_js %}
+    {{block.super}}
+    <script src="{% static 'js/dore.js' %}"></script>
+{% endblock %}

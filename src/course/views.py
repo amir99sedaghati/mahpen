@@ -1,10 +1,12 @@
 from django.views.generic.base import View
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.shortcuts import get_object_or_404
 from .models import Card, Course
 from .permission import ShouldNotHaveEnableCard
 from user_management.permissions import IsAuthenticated
 from django.shortcuts import redirect
+from django.contrib import messages
 from . import filtering
 
 class AddCourseToCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
@@ -12,12 +14,13 @@ class AddCourseToCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
     permission_message = 'برای اضافه کردن محصول به سبد خرید ابتدا باید وارد حساب کاربری شوید .'
 
     def get(self, request, pk, *args, **kwargs):
-        past_courses = Course.objects.filter(card__user=self.request.user ,card__status=Card.PAID, id=pk)
-        if past_courses.exists():
-            pass
-        else :
+        course = get_object_or_404(Course.objects.filter(id=pk))
+        if not course.is_in_user_paid_card(self.request):
             card, is_created = Card.current_card(request=self.request)
-            card.add_course(pk)
+            card.add_course(course)
+            messages.warning(self.request , "دوره با موفقیت به سبد خرید اضافه شد .")
+        else :
+            messages.warning(self.request , "شما قبلا این دوره را خریداری کرده اید . برای دیدن محتوای آن میتوانید به پروفایل خود مراجعه کنید .")
         return redirect('course-list')
 
 class DeleteCourseFromCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
@@ -25,8 +28,9 @@ class DeleteCourseFromCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
     permission_message = 'برای اضافه کردن محصول به سبد خرید ابتدا باید وارد حساب کاربری شوید .'
 
     def get(self, request, pk, *args, **kwargs):
+        course = get_object_or_404(Course.objects.filter(id=pk))
         card, is_created = Card.current_card(request=self.request)
-        card.delete_course(pk)
+        card.delete_course(course)
         return redirect('course-list')
 
 class CardView(IsAuthenticated, ShouldNotHaveEnableCard, DetailView):
@@ -45,3 +49,15 @@ class CoursesView(ListView):
     def get_queryset(self):
         queryset = Course.objects.all()
         return filtering.CourseFilterSet(data=self.request.GET, queryset=queryset).qs
+
+class CourseDetailView(DetailView):
+    context_object_name = 'course'
+    queryset = Course.objects.filter(is_expire=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = context['course']
+        if self.request.user.is_authenticated :
+            context['carded_course'] = course.is_in_user_card(self.request)
+            context['buyed_course'] = course.is_in_user_paid_card(self.request)
+        return context

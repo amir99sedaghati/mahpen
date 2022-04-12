@@ -1,4 +1,4 @@
-from email.policy import default
+from this import d
 from django.db import models
 from blog.models import Category
 from ckeditor.fields import RichTextField
@@ -7,7 +7,6 @@ from .utilities.models_validatior import validate_video_extension
 from common.tools import convert_english_number_to_persian_number
 from django.utils.timezone import now
 from django.db.models import UniqueConstraint, Q
-from django.shortcuts import get_object_or_404
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -30,6 +29,27 @@ class Course(models.Model):
     image = models.ImageField(upload_to="course/image")
     date = models.DateTimeField(auto_now=True)
     is_expire = models.BooleanField(default=False)
+    supported_course = models.ManyToManyField('self', blank=True)
+    
+    def is_in_user_card(self, request):
+        print(Course.objects.filter(id=self.id ,card__user=request.user))
+        return Course.objects.filter(id=self.id ,card__user=request.user).exclude(card__status=Card.PAID).exists()
+
+    def is_in_user_paid_card(self, request):
+        return Course.objects.filter(id=self.id ,card__status=Card.PAID, card__user=request.user).exists()
+
+    def content_counter(self):
+        counter = sum( season.content_set.count() for season in self.season_set.all() )
+        return convert_english_number_to_persian_number(counter)
+
+    def season_counter(self):
+        return convert_english_number_to_persian_number(self.season_set.count())
+
+    def list_of_supported_course(self):
+        return self.supported_course.exclude(id=self.id).filter(is_expire=False)
+
+    def teacher_name(self):
+        return self.teacher.full_name()
 
     def get_amount_without_off(self):
         return self.amount
@@ -102,12 +122,10 @@ class Card(models.Model):
         card, is_created = queryset.get_or_create(user=request.user)
         return card, is_created
     
-    def add_course(self, course_id):
-        course = get_object_or_404(Course.objects.filter(id=course_id))
+    def add_course(self, course):
         self.courses.add(course)
     
-    def delete_course(self, course_id):
-        course = get_object_or_404(Course.objects.filter(id=course_id))
+    def delete_course(self, course):
         self.courses.remove(course)
     
     def courses_count(self):

@@ -5,3 +5,4 @@ from . import models
 admin.site.register(models.Course)
 admin.site.register(models.Card)
 admin.site.register(models.Content)
+admin.site.register(models.Season)

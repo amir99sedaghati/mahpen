@@ -10,8 +10,8 @@ valid_extensions = {
         ".mpeg",
         ".mpg",
         ".mov",
-        "wmv",
-        "avi",
+        ".wmv",
+        ".avi",
     ] ,
     "img" : [
         ".jpg",

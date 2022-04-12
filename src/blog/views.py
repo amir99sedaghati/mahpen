@@ -1,5 +1,4 @@
 from django.views.generic import TemplateView
-from requests import request
 from course.views import CardView
 
 class IndexView(TemplateView):

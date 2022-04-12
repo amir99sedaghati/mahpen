@@ -1,0 +1,742 @@
+@font-face{
+    font-family: "Kalameh";
+    src: url(Kalameh-Regular.ttf) format('truetype');
+}
+body{
+    padding: 0;
+    margin: 0;
+    
+}
+*{
+    box-sizing: border-box;
+    font-family: 'Kalameh';
+}
+header{
+    width: 1s0vw;
+    height: 25vh;
+    background-color: #FBF9FB;
+    box-shadow: 1px 8px 10px 2px #888888;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    justify-content: end;
+}
+.headerLogo{
+    width: 33%;
+    position: relative;    
+}
+
+.typeLogo{
+    
+    height: 100%;
+    position: absolute;
+    width: 50%;
+    left: 0;
+    
+}
+.typeLogo img{
+    width: 100%;
+    margin-top: 0em;
+    position: absolute;
+    
+    bottom: -2.9em;
+}
+
+header nav{
+    
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav ul{
+    
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    margin-top: 2em;
+}
+nav ul li{
+    transition: all 100ms;
+    padding: 1.5em;
+    margin: 0.3em;
+}
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+}
+nav ul li:hover{
+    transform: scale(1.1);
+    margin-top: 5px;
+    font-weight: bold;
+}
+.shoppingIcon{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.8em;
+    margin-left: -3.5em;
+    z-index: 1;
+}
+.fa-cart-shopping{
+    cursor: pointer;
+    padding: 0;
+    padding-top: 0.2em;
+    margin: 0;
+}
+.shoppingIcon p{
+    padding: 0;
+    margin: 0;
+    
+}
+.addToCartIcon{
+    width: 100%;
+    display: flex;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+}
+.shoppingIcon div:hover{
+    transform: scale(1.3);
+}
+.login{
+    
+    width: 30%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login a{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+}
+.loginBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    
+}
+.loginBtn:hover{
+    transform: scale(1.1);
+    transition: all 200ms;
+    font-weight: bold;
+}
+.loginBtn img{
+    margin-right: 1em;
+}
+
+.hamburgerBtn{
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    display: none;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.hamburgerBtn:hover{
+    cursor: pointer;
+}
+.hamberMenu{
+    background-color: #606061;
+    z-index: 1;
+    height: 100vh;
+    transition: all 300ms;
+    overflow: hidden;
+    display: none;
+    width: 350px;
+}
+.hamberMenu ul{
+    list-style-type: none;
+    
+    padding: 0;
+}
+.hamberMenu ul li{
+    width: 100%;
+    padding: 1em ;
+}
+.hamberMenu ul li:hover{
+    background-color: #212529;
+    cursor: pointer;
+}
+.hamberMenu ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+.verticalSubMenu{
+    background-color:#212529;
+    display: none;
+}
+
+.subMenu a{
+    padding-right: 1em;
+}
+.safeNokhost{
+    position: relative;
+}
+.horizentalSubMenu{
+    position: absolute;
+    width: auto;
+    background-color: white;
+    height: auto;
+    box-shadow: 1px 12px 10px 2px #888888;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+}
+.horizentalSubMenu ul{
+    padding: 0 1em;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.horizentalSubMenu li{
+    padding: 0em 2em;
+    font-weight: 300;
+}
+.horizentalSubMenu li:hover{
+    font-weight: 900;
+}
+.closeBtn{
+    color: white;
+    padding: 0.5em 1em;
+    font-size: 1.8rem;
+}
+.logoCircle{
+    width: 300px;
+    height: 150px; /* as the half of the width */
+    background-color: #FBF9FB;
+    border-bottom-left-radius: 200px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 200px; /* 100px of height + 10px of border */
+    box-shadow: 1px 12px 10px 2px #888888;
+    margin-right: 3em;
+    display: flex;
+    justify-content: center;
+}
+.logoImage{
+    
+    width: 700px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+} 
+.logoImage img{
+    width: 220%;
+    position: absolute;
+    top: -18.5em;
+    left: -10em;
+    
+}
+
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tutorial{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: inherit;
+}
+.tutorial h1{
+    color: #3D8835;
+    font-size: 3rem;
+}
+.tutorialImage{
+    width: 50%;
+    padding: 0.5em;
+    padding-bottom: 0.2em;
+    background-color: #FCFAFB;
+    box-shadow: 0 1px 4px 4px rgb(151, 151, 151);
+    margin-bottom: 2em;
+    min-width: 400px;
+}
+.tutorialImage img{
+    width: 100%;
+    margin: 0;
+}
+.tutorialInfos{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.tag{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.tagImage{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 0.2em;
+    border: 1px solid #73082F;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.greenBackgroundTag{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3D8835;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+.tagImage img{
+    width: 100%;
+    
+    border-radius: 50%;
+}
+.tag p{
+    font-size: 2rem;
+    margin-right: 0.3em;
+}
+.timeImage img{
+    border-radius: 0;
+    width: 50%;
+}
+.playImage img{
+    width: 100%;
+}
+.playGreenBackground{
+    position: relative;
+}
+.playGreenBackground img{
+    position: absolute;
+    left: 0.4em;
+}
+.tutorialCaption{
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    font-size: 1.1rem;
+}
+.tutorialCaption h2{
+    color: #88153E;
+}
+.introVideo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+
+.tutorialPrice {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 3px 4px 1px rgb(151, 151, 151);
+    border-radius: 15px;
+    margin-top: 4em;
+    margin-bottom: 2em;
+    height: 4em;
+    
+}
+.price{
+    display: flex;
+    flex-direction: row;
+    width: 15em;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 0 15px 15px 0;
+}
+.newPrice{
+    color: #3D8835;
+    font-size: 1.4rem;
+    padding-left: 5px;
+}
+.oldPrice{
+    color: red;
+    text-decoration: line-through;
+}
+.addToCart{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF9919;
+    border-radius: 15px 0 0 15px;
+    color: white;
+    cursor: pointer;
+    transition: all 100ms;
+    width: 7em;
+    opacity: 0.8;
+}
+.addToCart:hover{
+    background-color: #3D8835;
+}
+.addToCart .fa-cart-shopping{
+    color: white;
+    padding-right: 10px;
+    font-size: 1.9rem;
+    margin: 0;
+}
+.addToCart p{
+    font-size: 1.1rem;
+}
+.introVideo p{
+    margin-top: -2.5em;
+    font-size: 1.1rem;
+}
+
+.boughtTutuorials{
+    padding-bottom: 2em;
+    width: 81%;
+    display: flex;
+    flex-direction: column;
+}
+.boughtTutuorials h3{
+    font-size: 1.6rem;
+    color: #88153E;
+}
+.product{
+    width: 250px;
+    height: 200px;
+    background-color: #adadad;
+    box-shadow: 0px 2px 3px 2px rgb(151, 151, 151);
+    border-radius: 20px;
+    position: relative;
+}
+.heading p{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #212529;
+    color: white;
+    border-top-left-radius: 20px;
+    width: 5em;
+    height: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+.heading img{
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+}
+.productCaption{
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.nameAndPrice{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.productCaption h4{
+    margin: 0;
+    padding: 0;
+    font-size: 1.1rem;
+    margin-bottom: 1em;
+}
+.nameAndPrice p{
+    padding: 0;
+    margin: 0;
+}
+.nameAndPrice p:first-of-type{
+    font-size: 1rem;
+}
+
+.nameAndPrice p:last-of-type{
+    color: #3D8835;
+    font-size: 1.2rem;
+}
+
+
+
+.socialBtn{
+    height: 65px;
+    width: 65px;
+    border: 5px solid #FBF9FB;
+    background-color: #FBF9FB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 10px 8px #888888;
+    border-radius: 40px;
+    position: fixed;
+    bottom: 2em;
+    left: 3em;
+    transition: all 200ms;
+}
+.socials{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    transition: all 100ms;
+    margin: 0.5em;
+}
+.socials:hover{
+    transform: scale(1.1);
+}
+.instagram{
+    display: none;
+}
+.instagram img{
+    width: 100%;
+}
+
+.telegram{
+    width: 50px;
+    display: none;
+}
+.telegram img{
+    width: 100%;
+}
+
+
+
+
+footer{
+    background-color: #212529;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.columns{
+    display: flex;
+    flex-direction: row;
+    
+}
+.columns h3{
+    color: green;
+    font-size: 1.5rem;
+}
+.companyLogo{
+    width: 25%;
+    height: 100%;
+   
+}
+.companyLogo img:first-of-type{
+    padding: 0;
+    margin: 0;
+    transform: scale(1.5);
+    margin-left: 0.4em;
+    margin-bottom: 0.5em;
+    height: 200px;
+    width: 100%;
+    transform: scale(2);
+    margin-bottom: -3em;
+    margin-top: 1em;
+}
+.companyLogo img:last-of-type{
+    padding: 0;
+    margin: 0;
+    transform: scale(1);
+    height: 180px;
+    width: 105%;
+}
+.about{
+    width: 25%;
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+}
+.contactUs{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.contactUs .socialIcons{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.socialIcons img{
+    width: 18%;
+}
+
+.brownBackground:hover{
+    background-color: brown;
+    transition: background-color 100ms;
+}
+.greenBackgroundIcon:hover{
+    background-color: green;
+    transition: background-color 100ms;
+}
+.iconRows{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.7em;
+    
+}
+.iconRows img{
+    background-color: lightgray;
+    margin: 0 0.5em 0em 0.2em;
+    border-radius: 5px;
+    height: 60px;
+    width: 60px;
+}
+.iconRows img:first-of-type{
+    margin-left: 1em;
+}
+.licens{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.licensImages{
+    display: flex;
+    flex-direction: column;
+}
+.licensImages img{
+    border-radius: 10px;
+    transform: scale(1);
+}
+.upperLicens{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.copyRights{
+    color: white;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: -3em;
+}
+.copyRights p{
+    font-size: 1.1rem;
+}
+
+
+
+
+
+@media (max-width: 1000px){
+    .tag{
+        flex-direction: column;
+    }
+    .tutorialCaption{
+        flex-direction: column;
+    }
+    .introVideo{
+        transform: scale(0.7);
+        
+    }
+    .boughtTutuorials{
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 800px){
+    .hamburgerBtn{
+        visibility: visible;
+    }
+    
+    .logoCircle{
+        transform: scale(0.7);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -1.6em;
+    }
+    .typeLogo{
+        right: 1.2em;
+        height: 15px;
+        transform: scale(1.3);
+        position: sticky;
+        top: 0;
+    }
+    nav ul{
+        display: none;
+    }
+    .loginBtn{
+        display: none;
+    }
+    .hamburgerBtn{
+        display: flex;
+        margin-top: 0.3em;
+    }
+    .shoppingIcon{
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 1em;
+        margin-left: -7em;
+    }
+    .tag p{
+        font-size: 1.2rem;
+    }
+    footer{
+        height: auto;
+    }
+    .columns{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .companyLogo{
+        width: 50%;
+    }
+    .about{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+    .contactUs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        margin-left: 4em;
+    }
+    .contactUs h3{
+        margin-left: 0;
+    }
+    .socialIcons img{
+        transform: scale(0.8);
+    }
+    .licensImages img{
+        transform: scale(0.8);
+    }
+    .copyRights{
+        margin-top: -2em;
+    }
+}
