@@ -1,6 +1,648 @@
-{% extends 'blog/base.html' %}
-{% block content %}
-<main class="m-5">
-    {{ courses }}
-</main>
-{% endblock content %}
+<!DOCTYPE html>
+<html dir="rtl" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.js" integrity="sha512-TsDUjQW16/G8fz4gmgTOBW2s2Oi6TPUtQ6/hm+TxZZdkQtQrK5xEFIE0rgDuz5Cl1xQU1u3Yer7K5IuuBeiCqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="doreha.css">
+    <title>Doreha</title>
+</head>
+<body>
+    <header>
+        <div class="hamburgerBtn" onclick="openHamburger()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="hamberMenu">
+            <div class="close">
+                <div class="closeBtn" onclick="closeHamburger()">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div class="hamberLists">
+                <ul>
+                    <li class="firstPage" onclick="openSubMenu()"><a href="#">صفحه نخست</a>
+                        <li class="verticalSubMenu"><a href="#">راه اندازی کسب و کار</a></li>
+                        <li class="verticalSubMenu"><a href="#">بازاریابی</a></li>
+                        <li class="verticalSubMenu"><a href="#">فروش</a></li>
+                        <li class="verticalSubMenu"><a href="#">مدیریت و رهبری</a></li>
+                        <li class="verticalSubMenu"><a href="#">برندینگ</a></li>
+                    </li>
+                    <li><a href="#">دوره های اموزشی</a></li>
+                    <li><a href="#">نظرات</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="headerLogo">
+            <div class="typeLogo">
+                <img src="logotypefa.svg" alt="logotypeen">
+            </div>
+            
+            
+        </div>
+        <nav class="topNav">
+            <ul>
+                <li class="safeNokhost" onmouseover="showSubMenu()" onmouseout="hideSubMenu()"><a href="#">صفحه نخست</a>
+                        <div class="horizentalSubMenu">
+                            <ul>
+                                <li><a href="#">زاه اندازی کسب و کار</a></li>
+                                <li><a href="#">بازاریابی</a></li>
+                                <li><a href="#">فروش</a></li>
+                                <li><a href="#">مدیریت و رهبری</a></li>
+                                <li><a href="#">برندینگ</a></li>  
+                            </ul>  
+                        </div>
+                </li>
+                <li><a href="#">دوره های اموزشی</a></li>
+                <li><a href="#">نظرات</a></li>
+            </ul>
+        </nav>
+        <div class="shoppingIcon">
+            <div class="addToCartIcon" id="addToCartIcon">
+                <p id="addedProducts"></p>
+                <i class="fa-solid fa-cart-shopping"></i>
+            </div>
+            
+        </div>
+        <div class="login">
+            <div class="loginBtn">
+                <a href="#">ورود / عضویت</a>
+                <img src="user.svg" alt="user">
+            </div>
+        </div>
+        
+    </header>
+    <div class="logoCircle">
+        <div class="logoImage">
+            <img src="logo.svg" alt="logo">
+        </div>
+    </div>
+
+
+    <main>
+        <div class="container mostSold">
+            <h3>دوره های پرفروش</h3>
+            <div class=" containerInside mostSoldTutorials">
+                
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product1.png" alt="product1">
+                            <p>برندینگ</p>
+                            <p class="percent">۲۰٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>دوره جامع بازاریابی</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۰۰/۰۰۰ تومان</p>
+                                    <p>۱۶۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product2.png" alt="product2">
+                            <p>کسب و کار</p>
+                            <p class="percent">۱۰٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>راه اندازی کسب و کار</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۰۰/۰۰۰ تومان</p>
+                                    <p>۱۶۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product3.png" alt="product3">
+                            <p>برندینگ</p>
+                            <p class="notPercent"></p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>صفر تا صد اصول برندینگ</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p class="dontShow">000000</p>
+                                    <p>۱۸۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product1.png" alt="product3">
+                            <p>مدیریت</p>
+                            <p class="percent">۵٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>مدیریت و رهبری</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۲۰/۰۰۰ تومان</p>
+                                    <p>۲۰۹/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+        <div class="container newest">
+            <h3>جدیدترین دوره ها</h3>
+            <div class=" containerInside newestTutorials">
+                
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product1.png" alt="product1">
+                            <p>برندینگ</p>
+                            <p class="percent">۲۰٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>دوره جامع بازاریابی</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۰۰/۰۰۰ تومان</p>
+                                    <p>۱۶۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product2.png" alt="product2">
+                            <p>کسب و کار</p>
+                            <p class="percent">۱۰٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>راه اندازی کسب و کار</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۰۰/۰۰۰ تومان</p>
+                                    <p>۱۶۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product3.png" alt="product3">
+                            <p>برندینگ</p>
+                            <p class="notPercent"></p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>صفر تا صد اصول برندینگ</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p class="dontShow">000000</p>
+                                    <p>۱۸۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product1.png" alt="product3">
+                            <p>مدیریت</p>
+                            <p class="percent">۵٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>مدیریت و رهبری</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۲۰/۰۰۰ تومان</p>
+                                    <p>۲۰۹/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+
+
+        <div class="container all">
+            <h3>دوره های مهبن</h3>
+            <div class="selections">
+                <ul class="selectionHeading" id="grouping">
+                    <li onclick="showGroupingDropDown()">دسته بندی <i class="fa-solid fa-angle-down" id="groupingAngle"></i></i></li>
+                    <ul class="dropDown" id="dropDown">
+                        <li>راه اندازی کسب و کار</li>
+                        <li>بازاریابی</li>
+                        <li>فروش</li>
+                        <li>مدیریت و رهبری</li>
+                        <li>برندینگ</li>    
+                    </ul>
+                </ul>
+                <ul class="selectionHeading" id="sorting">
+                    <li onclick="showsortingDropDown()">ترتیب دوره ها<i class="fa-solid fa-angle-down" id="sortingAngle"></i></i></li>
+                    <ul class="dropDown" id="sortingDropDown">
+                        <li>جدیدترین ها</li>
+                        <li>قدیمی ترین ها</li>
+                        <li>پرفروش ترین ها</li>
+                    </ul>
+                </ul>
+            </div>
+            <div class=" containerInside allTutorials">
+                
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product1.png" alt="product1">
+                            <p>برندینگ</p>
+                            <p class="percent">۲۰٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>دوره جامع بازاریابی</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۰۰/۰۰۰ تومان</p>
+                                    <p>۱۶۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product2.png" alt="product2">
+                            <p>کسب و کار</p>
+                            <p class="percent">۱۰٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>دوره جامع بازاریابی</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۰۰/۰۰۰ تومان</p>
+                                    <p>۱۶۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product3.png" alt="product3">
+                            <p>برندینگ</p>
+                            <p class="notPercent"></p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>صفر تا صد اصول برندینگ</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p class="dontShow">000000</p>
+                                    <p>۱۸۰/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="heading">
+                            <img src="product1.png" alt="product3">
+                            <p>مدیریت</p>
+                            <p class="percent">۵٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4>مدیریت و رهبری</h4>
+                            <div class="nameAndPrice">
+                                <p class="teacherName">حسین محمد نژاد</p>
+                                <div class="prices">
+                                    <p>۲۲۰/۰۰۰ تومان</p>
+                                    <p>۲۰۹/۰۰۰ تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+
+            <div class=" containerInside allTutorials">
+                
+                <div class="product">
+                    <div class="heading">
+                        <img src="product1.png" alt="product1">
+                        <p>برندینگ</p>
+                        <p class="percent">۲۰٪ تخفیف</p>
+                    </div>
+                    <div class="productCaption">
+                        <h4>دوره جامع بازاریابی</h4>
+                        <div class="nameAndPrice">
+                            <p class="teacherName">حسین محمد نژاد</p>
+                            <div class="prices">
+                                <p>۲۰۰/۰۰۰ تومان</p>
+                                <p>۱۶۰/۰۰۰ تومان</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="heading">
+                        <img src="product2.png" alt="product2">
+                        <p>کسب و کار</p>
+                        <p class="percent">۱۰٪ تخفیف</p>
+                    </div>
+                    <div class="productCaption">
+                        <h4>دوره جامع بازاریابی</h4>
+                        <div class="nameAndPrice">
+                            <p class="teacherName">حسین محمد نژاد</p>
+                            <div class="prices">
+                                <p>۲۰۰/۰۰۰ تومان</p>
+                                <p>۱۶۰/۰۰۰ تومان</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="heading">
+                        <img src="product3.png" alt="product3">
+                        <p>برندینگ</p>
+                        <p class="notPercent"></p>
+                    </div>
+                    <div class="productCaption">
+                        <h4>صفر تا صد اصول برندینگ</h4>
+                        <div class="nameAndPrice">
+                            <p class="teacherName">حسین محمد نژاد</p>
+                            <div class="prices">
+                                <p class="dontShow">000000</p>
+                                <p>۱۸۰/۰۰۰ تومان</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="heading">
+                        <img src="product1.png" alt="product3">
+                        <p>مدیریت</p>
+                        <p class="percent">۵٪ تخفیف</p>
+                    </div>
+                    <div class="productCaption">
+                        <h4>مدیریت و رهبری</h4>
+                        <div class="nameAndPrice">
+                            <p class="teacherName">حسین محمد نژاد</p>
+                            <div class="prices">
+                                <p>۲۲۰/۰۰۰ تومان</p>
+                                <p>۲۰۹/۰۰۰ تومان</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <div class=" containerInside allTutorials">
+                
+            <div class="product">
+                <div class="heading">
+                    <img src="product1.png" alt="product1">
+                    <p>برندینگ</p>
+                    <p class="percent">۲۰٪ تخفیف</p>
+                </div>
+                <div class="productCaption">
+                    <h4>دوره جامع بازاریابی</h4>
+                    <div class="nameAndPrice">
+                        <p class="teacherName">حسین محمد نژاد</p>
+                        <div class="prices">
+                            <p>۲۰۰/۰۰۰ تومان</p>
+                            <p>۱۶۰/۰۰۰ تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="heading">
+                    <img src="product2.png" alt="product2">
+                    <p>کسب و کار</p>
+                    <p class="percent">۱۰٪ تخفیف</p>
+                </div>
+                <div class="productCaption">
+                    <h4>دوره جامع بازاریابی</h4>
+                    <div class="nameAndPrice">
+                        <p class="teacherName">حسین محمد نژاد</p>
+                        <div class="prices">
+                            <p>۲۰۰/۰۰۰ تومان</p>
+                            <p>۱۶۰/۰۰۰ تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="heading">
+                    <img src="product3.png" alt="product3">
+                    <p>برندینگ</p>
+                    <p class="notPercent"></p>
+                </div>
+                <div class="productCaption">
+                    <h4>صفر تا صد اصول برندینگ</h4>
+                    <div class="nameAndPrice">
+                        <p class="teacherName">حسین محمد نژاد</p>
+                        <div class="prices">
+                            <p class="dontShow">000000</p>
+                            <p>۱۸۰/۰۰۰ تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product">
+                <div class="heading">
+                    <img src="product1.png" alt="product3">
+                    <p>مدیریت</p>
+                    <p class="percent">۵٪ تخفیف</p>
+                </div>
+                <div class="productCaption">
+                    <h4>مدیریت و رهبری</h4>
+                    <div class="nameAndPrice">
+                        <p class="teacherName">حسین محمد نژاد</p>
+                        <div class="prices">
+                            <p>۲۲۰/۰۰۰ تومان</p>
+                            <p>۲۰۹/۰۰۰ تومان</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class=" containerInside allTutorials">
+                
+        <div class="product">
+            <div class="heading">
+                <img src="product1.png" alt="product1">
+                <p>برندینگ</p>
+                <p class="percent">۲۰٪ تخفیف</p>
+            </div>
+            <div class="productCaption">
+                <h4>دوره جامع بازاریابی</h4>
+                <div class="nameAndPrice">
+                    <p class="teacherName">حسین محمد نژاد</p>
+                    <div class="prices">
+                        <p>۲۰۰/۰۰۰ تومان</p>
+                        <p>۱۶۰/۰۰۰ تومان</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="heading">
+                <img src="product2.png" alt="product2">
+                <p>کسب و کار</p>
+                <p class="percent">۱۰٪ تخفیف</p>
+            </div>
+            <div class="productCaption">
+                <h4>دوره جامع بازاریابی</h4>
+                <div class="nameAndPrice">
+                    <p class="teacherName">حسین محمد نژاد</p>
+                    <div class="prices">
+                        <p>۲۰۰/۰۰۰ تومان</p>
+                        <p>۱۶۰/۰۰۰ تومان</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="heading">
+                <img src="product3.png" alt="product3">
+                <p>برندینگ</p>
+                <p class="notPercent"></p>
+            </div>
+            <div class="productCaption">
+                <h4>صفر تا صد اصول برندینگ</h4>
+                <div class="nameAndPrice">
+                    <p class="teacherName">حسین محمد نژاد</p>
+                    <div class="prices">
+                        <p class="dontShow">000000</p>
+                        <p>۱۸۰/۰۰۰ تومان</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product">
+            <div class="heading">
+                <img src="product1.png" alt="product3">
+                <p>مدیریت</p>
+                <p class="percent">۵٪ تخفیف</p>
+            </div>
+            <div class="productCaption">
+                <h4>مدیریت و رهبری</h4>
+                <div class="nameAndPrice">
+                    <p class="teacherName">حسین محمد نژاد</p>
+                    <div class="prices">
+                        <p>۲۲۰/۰۰۰ تومان</p>
+                        <p>۲۰۹/۰۰۰ تومان</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="pages">
+            <a href="#">۱</a>
+            <a href="#">۲</a>
+            <a href="#">۳</a>
+            <a href="#">۴</a>
+            <p>...</p>
+            <a href="3">صفحه آخر</a>
+        </div>
+        </div>
+
+
+
+
+
+
+
+        <div class="socialBtn" onmouseover="showAllSocialMedias()" onmouseleave="hideSocialMedias()" id="socialBtn">
+            <div class="socials instagram" id="instagram">
+                <img src="insta.svg" alt="insta">
+            </div>
+            <div class="socials telegram" id="telegram">
+                <img src="tele.svg" alt="insta">
+            </div>
+            <div class="socials whatsapp">
+                <img src="whats.svg" alt="insta">
+            </div>
+        </div>
+    </main>
+
+
+
+
+    <footer>
+        <div class="columns">
+            <div class="companyLogo">
+                <img src="logo.svg" alt="logo">
+                <img src="logotypeen.svg" alt="logotypeen">
+            </div>
+            <div class="about">
+                <h3>مهبن چیست ؟</h3>
+                <p>
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</p>
+            </div>
+            <div class="contactUs">
+                <h3>ارتباط با ما</h3>
+                <div class="socialIcons">
+                    <div class="iconRows">
+                        <img src="phone.svg" alt="phone" class="brownBackground">
+                        <img src="location.svg" alt="location" class="greenBackgroundIcon">
+                    </div>
+                    <div class="iconRows">
+                        <img src="email.svg" alt="email" class="greenBackgroundIcon">
+                        <img src="instagram.svg" alt="instagram" class="brownBackground">   
+                    </div>
+                    <div class="iconRows">
+                        <img src="whatsapp.svg" alt="whatsapp" class="brownBackground">
+                        <img src="telegram.svg" alt="telegram" class="greenBackgroundIcon"> 
+                    </div>
+                </div>
+            </div>
+            <div class="licens">
+                <h3>مجوزها</h3>
+                <div class="licensImages">
+                    <div class="upperLicens">
+                        <img src="enamadsmall.png" alt="enamadsmall">
+                        <img src="etehadie.png" alt="etehadie">
+                    </div>
+                    <div>
+                    <img src="sabt.png" alt="sabt">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="copyRights">
+            <p>تمام حقوق مادی و معنوی این وبسایت متعلق به مهبن میباشد.</p>
+            <i class="fa-solid fa-copyright"></i>
+        </div>
+    </footer>
+
+    <script src="doreha.js"></script>
+</body>
+</html>
