@@ -13,7 +13,7 @@
 {% endif %}
 {% if carded_course %}
     <div style="margin-bottom: 0; border-radius: 0;" class="alert alert-danger">
-        <strong>شما قبلا این دوره را در سبد خرید خود ثبت کرده اید. برای حذف و یا نهایی کردن خرید به بخش سبد خرید مرجعه کنید .</strong>
+        <strong>شما قبلا این دوره را در سبد خرید خود ثبت کرده اید. برای حذف و یا نهایی کردن خرید به بخش سبد خرید مراجعه کنید .</strong>
     </div>
 {% endif %}
 {{block.super}}
@@ -41,7 +41,7 @@
                             <img src="{% static 'images/hourglass_time_icon.svg' %}" alt="{{course.title}}">
                         </div>
                     </div>
-                    <p>با ۲۳۶ دقیقه آموزش</p>
+                    <p>با {{course.get_course_duration}} دقیقه آموزش</p>
                 </div>
                 <div class="tag playTag">
                     <div class="tagImage playImage">
@@ -57,8 +57,10 @@
                     <h2>توضیحات دوره</h2>
                     <p>{{course.detail  | safe }}</p>
                 </div>
-                <div class="introVideo col-6">
-                    <img src="" alt="{{course.title}}">
+                <div class="text-center col-6">
+                    <video style="width: 100%;" controls>
+                        <source src="{% get_media_prefix%}{{course.desribe_video}}" type="">
+                    </video>
                     <p>ویدیو معرفی دوره</p>
                 </div>
             </div>
@@ -68,12 +70,10 @@
                         <p class="newPrice">{{course.get_raw_amount}}</p>
                         <p class="oldPrice">{{course.persian_amount_without_off}}</p>
                     </div>
-                    <a style="text-decoration: none;" href="{% url 'add-course-to-card' course.id %}">
-                        <div class="addToCart">
-                            <p>افزودن به سبد خرید</p>
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </div>
-                    </a>
+                    <form class="addToCartForm" action="{% url 'add-course-to-card' course.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="افزودن به سبد خرید">
+                    </form>
                 </div>
             {% endif %}
         </div>

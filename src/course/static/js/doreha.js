@@ -1,5 +1,5 @@
 //header
-
+console.log("saS")
 let verticalSubMenu = document.querySelectorAll('.verticalSubMenu');
 let subCounter = 0;
 const openSubMenu = () =>{
