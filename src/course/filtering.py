@@ -1,10 +1,12 @@
-import django_filters
+from url_filter.filtersets import ModelFilterSet
 from .models import Course
 
-class CourseFilterSet(django_filters.FilterSet):
+class CourseFiltering(ModelFilterSet):
     class Meta(object):
         model = Course
-        exclude = [
-            'desribe_video',
-            'image',
-        ]
+
+def ordering(qs, request):
+    try :
+        return qs.order_by(request.GET.get('ordering', '-id'))
+    except :
+        return qs

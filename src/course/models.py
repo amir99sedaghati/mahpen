@@ -7,6 +7,8 @@ from .utilities.models_validatior import validate_video_extension
 from common.tools import convert_english_number_to_persian_number
 from django.utils.timezone import now
 from django.db.models import UniqueConstraint, Q
+import mutagen
+from math import ceil
 
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -19,6 +21,7 @@ class Course(models.Model):
     teacher = models.ForeignKey(User, on_delete=models.PROTECT)
     desribe_video = models.FileField(upload_to="course/video", validators=[validate_video_extension], null=True, blank=True)
     amount = models.PositiveBigIntegerField(default=0)
+    buy_counter = models.PositiveIntegerField(default=0, editable=False)
     off = models.PositiveSmallIntegerField(
         default=0,
         validators=[
@@ -30,10 +33,17 @@ class Course(models.Model):
     date = models.DateTimeField(auto_now=True)
     is_expire = models.BooleanField(default=False)
     supported_course = models.ManyToManyField('self', blank=True)
+
+    def get_course_duration(self):
+        contents = Content.objects.filter(season__course__id=self.id)
+        length = 0
+        for content in contents :
+            video_info = mutagen.File(content.video).info
+            length += int(video_info.length)
+        return convert_english_number_to_persian_number (ceil(length / 60))
     
     def is_in_user_card(self, request):
-        print(Course.objects.filter(id=self.id ,card__user=request.user))
-        return Course.objects.filter(id=self.id ,card__user=request.user).exclude(card__status=Card.PAID).exists()
+        return Course.objects.filter(id=self.id , card__user=request.user).filter(Q(card__status=Card.INPROCESS) | Q(card__status=Card.FREEZE)).exists()
 
     def is_in_user_paid_card(self, request):
         return Course.objects.filter(id=self.id ,card__status=Card.PAID, card__user=request.user).exists()
