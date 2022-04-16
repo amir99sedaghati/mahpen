@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{% static 'css/doreha.css' %}">
 {% endblock %}
 {% block content %}
-{{courses}}
     <main>
         <div class="container mostSold">
             <h3>دوره های پرفروش</h3>
@@ -63,186 +62,68 @@
 
 
         <div class="container all">
-            <h3>دوره های مهبن</h3>
+            <h3 class="mb-4">دوره های مهپن</h3>
             <div class="selections">
                 <ul class="selectionHeading" id="grouping">
                     <li onclick="showGroupingDropDown()">دسته بندی <i class="fa-solid fa-angle-down" id="groupingAngle"></i></i></li>
                     <ul class="dropDown" id="dropDown">
-                        <li>راه اندازی کسب و کار</li>
-                        <li>بازاریابی</li>
-                        <li>فروش</li>
-                        <li>مدیریت و رهبری</li>
-                        <li>برندینگ</li>    
+                        {% for category in categotories %}
+                            <li><a href="?category={{category.id}}&ordering={{request.GET.ordering}}">{{category.title}}</a></li>
+                        {% endfor %} 
                     </ul>
                 </ul>
                 <ul class="selectionHeading" id="sorting">
                     <li onclick="showsortingDropDown()">ترتیب دوره ها<i class="fa-solid fa-angle-down" id="sortingAngle"></i></i></li>
                     <ul class="dropDown" id="sortingDropDown">
-                        <li>جدیدترین ها</li>
-                        <li>قدیمی ترین ها</li>
-                        <li>پرفروش ترین ها</li>
+                        <li><a href="?category={{request.GET.category}}&ordering=id">جدیدترین ها</a></li>
+                        <li><a href="?category={{request.GET.category}}&ordering=-id">قدیمی ترین ها</a></li>
+                        <li><a href="?category={{request.GET.category}}&ordering=buy_counter">پرفروش ترین ها</a></li>
                     </ul>
                 </ul>
             </div>
 
+            {% for course in page_obj %}
+                {% if forloop.counter0|divisibleby:"4" %}
+                    <div class="containerInside allTutorials">
+                {% endif %}
+                <a href="{% url 'course-detail' course.id %}">
+                    <div class="product">
+                        <div class="heading">
+                            <img src="{% get_media_prefix%}{{course.image}}" alt="{{course.title}}">
+                            <p>{{course.category.title}}</p>
+                            <p class="percent">{{course.persian_off}}٪ تخفیف</p>
+                        </div>
+                        <div class="productCaption">
+                            <h4 style="color: black;">{{course.title}}</h4>
+                            <div class="nameAndPrice">
+                                <p style="color: black;" class="teacherName">{{course.teacher_name}}</p>
+                                <div class="prices">
+                                    <p>{{course.get_raw_amount}} تومان</p>
+                                    <p>{{course.persian_amount_without_off}} تومان</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% if forloop.counter0|add:"1"|divisibleby:"4" or forloop.last %}
+                    </div>
+                {% endif %}
+            {% endfor %}
 
-            <div class=" containerInside allTutorials">
                 
-                <div class="product">
-                    <div class="heading">
-                        <img src="product1.png" alt="product1">
-                        <p>برندینگ</p>
-                        <p class="percent">۲۰٪ تخفیف</p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>دوره جامع بازاریابی</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p>۲۰۰/۰۰۰ تومان</p>
-                                <p>۱۶۰/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="product">
-                    <div class="heading">
-                        <img src="product2.png" alt="product2">
-                        <p>کسب و کار</p>
-                        <p class="percent">۱۰٪ تخفیف</p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>دوره جامع بازاریابی</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p>۲۰۰/۰۰۰ تومان</p>
-                                <p>۱۶۰/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="heading">
-                        <img src="product3.png" alt="product3">
-                        <p>برندینگ</p>
-                        <p class="notPercent"></p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>صفر تا صد اصول برندینگ</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p class="dontShow">000000</p>
-                                <p>۱۸۰/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="heading">
-                        <img src="product1.png" alt="product3">
-                        <p>مدیریت</p>
-                        <p class="percent">۵٪ تخفیف</p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>مدیریت و رهبری</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p>۲۲۰/۰۰۰ تومان</p>
-                                <p>۲۰۹/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class=" containerInside allTutorials">
-                
-                <div class="product">
-                    <div class="heading">
-                        <img src="product1.png" alt="product1">
-                        <p>برندینگ</p>
-                        <p class="percent">۲۰٪ تخفیف</p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>دوره جامع بازاریابی</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p>۲۰۰/۰۰۰ تومان</p>
-                                <p>۱۶۰/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="heading">
-                        <img src="product2.png" alt="product2">
-                        <p>کسب و کار</p>
-                        <p class="percent">۱۰٪ تخفیف</p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>دوره جامع بازاریابی</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p>۲۰۰/۰۰۰ تومان</p>
-                                <p>۱۶۰/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="heading">
-                        <img src="product3.png" alt="product3">
-                        <p>برندینگ</p>
-                        <p class="notPercent"></p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>صفر تا صد اصول برندینگ</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p class="dontShow">000000</p>
-                                <p>۱۸۰/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <div class="heading">
-                        <img src="product1.png" alt="product3">
-                        <p>مدیریت</p>
-                        <p class="percent">۵٪ تخفیف</p>
-                    </div>
-                    <div class="productCaption">
-                        <h4>مدیریت و رهبری</h4>
-                        <div class="nameAndPrice">
-                            <p class="teacherName">حسین محمد نژاد</p>
-                            <div class="prices">
-                                <p>۲۲۰/۰۰۰ تومان</p>
-                                <p>۲۰۹/۰۰۰ تومان</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pages">
-                <a href="#">۱</a>
-                <a href="#">۲</a>
-                <a href="#">۳</a>
-                <a href="#">۴</a>
-                <p>...</p>
-                <a href="3">صفحه آخر</a>
+            <div class="pages mb-5">
+                {% if page_obj.has_previous %}
+                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page=1">&laquo; صفحه اول</a>
+                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page={{ page_obj.previous_page_number }}">صفحه قبلی</a>
+                {% endif %}
+                <span class="current">
+                    صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page={{ page_obj.next_page_number }}">صفحه بعدی</a>
+                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page={{ page_obj.paginator.num_pages }}">صفحه آخر &raquo;</a>
+                {% endif %}
             </div>
         </div>
     </main>

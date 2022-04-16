@@ -45,21 +45,23 @@ class CardView(IsAuthenticated, ShouldNotHaveEnableCard, DetailView):
 
 class CoursesView(ListView):
     context_object_name = 'courses'
-    paginate_by = 16
+    paginate_by = 1
 
     def get_queryset(self):
         qs = filtering.CourseFiltering(data=self.request.GET, queryset=Course.objects.all().order_by('-id')).filter()
         return filtering.ordering(qs, self.request)
     
     def get_context_data(self, **kwargs):
+        from blog.models import Category
         context = super().get_context_data(**kwargs)
-        context['most_sales'] = Course.objects.all().order_by('buy_counter' , '?')[0:4]
-        context['newest_course'] = Course.objects.all().order_by('date' , '?')[0:4]
+        context['most_sales'] = Course.objects.all().prefetch_related('teacher', 'category').order_by('buy_counter' , '?')[0:4]
+        context['newest_course'] = Course.objects.all().prefetch_related('teacher', 'category').order_by('date' , '?')[0:4]
+        context['categotories'] = Category.objects.all()
         return context
 
 class CourseDetailView(DetailView):
     context_object_name = 'course'
-    queryset = Course.objects.filter(is_expire=False)
+    queryset = Course.objects.filter(is_expire=False).prefetch_related('teacher', 'category')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

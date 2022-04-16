@@ -718,3 +718,17 @@ footer{
         margin-top: -2em;
     }
 }
+
+.pages a {
+    font-size: 18px;
+    color : rgb(73, 73, 255);
+}
+
+.current {
+    font-size: 20px;
+}
+
+.dropDown a {
+    color : black;
+    text-decoration: none;
+}
