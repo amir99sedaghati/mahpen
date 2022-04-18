@@ -75,9 +75,9 @@
                 <ul class="selectionHeading" id="sorting">
                     <li onclick="showsortingDropDown()">ترتیب دوره ها<i class="fa-solid fa-angle-down" id="sortingAngle"></i></i></li>
                     <ul class="dropDown" id="sortingDropDown">
-                        <li><a href="?category={{request.GET.category}}&ordering=id">جدیدترین ها</a></li>
-                        <li><a href="?category={{request.GET.category}}&ordering=-id">قدیمی ترین ها</a></li>
-                        <li><a href="?category={{request.GET.category}}&ordering=buy_counter">پرفروش ترین ها</a></li>
+                        <li><a href="?ordering=-id{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">جدیدترین ها</a></li>
+                        <li><a href="?ordering=id{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">قدیمی ترین ها</a></li>
+                        <li><a href="?ordering=-buy_counter{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">پرفروش ترین ها</a></li>
                     </ul>
                 </ul>
             </div>
@@ -114,15 +114,15 @@
 
             <div class="pages mb-5">
                 {% if page_obj.has_previous %}
-                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page=1">&laquo; صفحه اول</a>
-                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page={{ page_obj.previous_page_number }}">صفحه قبلی</a>
+                    <a href="?ordering={{request.GET.ordering}}&page=1{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">&laquo; صفحه اول</a>
+                    <a href="?ordering={{request.GET.ordering}}&page={{ page_obj.previous_page_number }}{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">صفحه قبلی</a>
                 {% endif %}
                 <span class="current">
                     صفحه {{ page_obj.number }} از {{ page_obj.paginator.num_pages }}
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page={{ page_obj.next_page_number }}">صفحه بعدی</a>
-                    <a href="?category={{request.GET.category}}&ordering={{request.GET.ordering}}&page={{ page_obj.paginator.num_pages }}">صفحه آخر &raquo;</a>
+                    <a href="?ordering={{request.GET.ordering}}&page={{ page_obj.next_page_number }}{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">صفحه بعدی</a>
+                    <a href="?ordering={{request.GET.ordering}}&page={{ page_obj.paginator.num_pages }}{% if request.GET.category %}&category={{request.GET.category}}{% endif %}">صفحه آخر &raquo;</a>
                 {% endif %}
             </div>
         </div>

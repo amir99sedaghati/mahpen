@@ -31,7 +31,7 @@ class DeleteCourseFromCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
         course = get_object_or_404(Course.objects.filter(id=pk))
         card, is_created = Card.current_card(request=self.request)
         card.delete_course(course)
-        return redirect('course-list')
+        return redirect('card-detail')
 
 class CardView(IsAuthenticated, ShouldNotHaveEnableCard, DetailView):
     card_status_messgage = 'برای مشاهده وضعیت سبد خرید ابتدا باید سبد خرید در حال پرداخت قبلی را تسویه نمایید، سبد خرید شما بعد از ۱۵ دقیقه به حالت پرداخت نشده باز میگردد .'
@@ -45,7 +45,7 @@ class CardView(IsAuthenticated, ShouldNotHaveEnableCard, DetailView):
 
 class CoursesView(ListView):
     context_object_name = 'courses'
-    paginate_by = 1
+    paginate_by = 16
 
     def get_queryset(self):
         qs = filtering.CourseFiltering(data=self.request.GET, queryset=Course.objects.all().order_by('-id')).filter()
