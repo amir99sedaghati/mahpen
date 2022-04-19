@@ -16,13 +16,13 @@ class PayView(IsAuthenticated, View):
     def card_queryset(self):
         return Card.objects.filter(user=self.request.user)
 
-    def get(self, request, pk, *arg, **kwargs):
+    def post(self, request, pk, *arg, **kwargs):
         card = get_object_or_404(self.card_queryset().exclude(status=Card.PAID) , pk=pk)
         card.change_status(Card.FREEZE)
         return self.send_request(card)
 
     def send_request(self, card):
-        call_back_url = reverse('card-pay' , args=card.id)
+        call_back_url = CALL_BACK_URL + reverse('callback-pay' , args=(card.id,))
         client = Client(ZARINPAL_WEBSERVICE)
         result = client.service.PaymentRequest(
             MMERCHANT_ID,

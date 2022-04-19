@@ -43,15 +43,18 @@
                     </div>
                     <div class="buy">
                         <p>قیمت نهایی (تومان)</p>
-                        <div class="finalPrice m-4">......</div>
+                        <div class="finalPrice m-4">{{card.persian_amount}}</div>
                         <button onclick="showPage()">پرداخت</button>
                     </div>
                 </div>
 
-                <div class="paymentPage" id="paymentPage" onclick="hidePage()" >
-                    <div class="paymentMethods">
-                        <button class="onlinePayment">برداخت آنلاین</button>
-                        <button class="walletPayment">برداخت از کیف بول</button>
+                <div class="container paymentPage" id="paymentPage" onclick="hidePage()" >
+                    <div style="background-color : #aaa;" class="paymentMethods">
+                        <form method="post" action="{% url 'card-pay' card.id %}">
+                            {% csrf_token %}
+                            <input type="submit" class="btn p-4 onlinePayment" value="پرداخت آنلاین">
+                        </form>
+                        <button class="walletPayment">برداخت از کیف پول</button>
                     </div>
                 </div>
             {% else %}
@@ -66,5 +69,13 @@
 
 {% block page_js %}
     {{block.super}}
-    <script src="{% static 'js/shoppingcart.js' %}"></script>
+    <script>
+        const showPage = () => {
+            document.getElementById('paymentPage').style.display = 'flex';
+        }
+        const hidePage = () => {
+            document.getElementById('paymentPage').style.display = 'none';
+        }
+    </script>
+    {% comment %} <script src="{% static 'js/shoppingcart.js' %}"></script> {% endcomment %}
 {% endblock %}

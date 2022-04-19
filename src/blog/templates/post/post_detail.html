@@ -1,0 +1,50 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block page_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/maghale.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container video">
+            <h1>{{post.title}}</h1>
+            <div class="videoHolder">
+                <img src="{% get_media_prefix %}{{post.image}}" alt="{{post.title}}">
+            </div>
+            <div class="videoTags">
+                <h3>{{post.author.full_name}}</h3>
+                <p>{{post.date_publish|date:"Y:n:j"}}</p>
+            </div>
+        </div>
+        <div class="videoCaption">
+            <h4>توضیحات مقاله</h4>
+            <p>{{post.text|safe}}</p>
+        </div>
+        {% if related_post %}
+        <div class="relatedVideos">
+            <h4>مقاله های مرتبط</h4>
+            <div class="relatedVideosRow">
+                {% for post in related_post %}
+                    <a style="color: black;" href="{% url 'post-detail' post.id %}" class="text-decoration-none">
+                        <div class="videoThumbnail">
+                            <div class="thumbnailHeading">
+                                <img src="{% get_media_prefix %}{{post.image}}" alt="{{post.title}}">
+                            </div>
+                            <div class="thumbnailCaption">
+                                <h5>{{post.title}}</h5>
+                                <h6>{{post.author.full_name}}</h6>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </main>
+{% endblock content %}
+
+{% block page_js %}
+    {{block.super}}
+    <script src="{% static 'js/maghale.js' %}"></script>
+{% endblock %}

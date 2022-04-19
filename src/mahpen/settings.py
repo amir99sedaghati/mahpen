@@ -160,7 +160,7 @@ ZARINPAL_CONFIGURATION = {
     'description' : u'توضیحات تراکنش تستی',  # Required
     'email' : 'user@userurl.ir',  # Optional
     'mobile' : '09123456789',  # Optional
-    'call_back_url' : 'http://127.0.0.1:8000',
+    'call_back_url' : 'http://localhost:8000',
 }
 
 LOGIN_URL = '/user/login/'
