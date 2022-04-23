@@ -1,10 +1,17 @@
 from re import L
 from django.contrib.auth import get_user_model
 from django.views.generic.edit import CreateView
+from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.contrib.auth import authenticate, login
+from django.urls import reverse
+from course.models import Season
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from . import permissions
 from . import forms
+from zarinpal.configurations import CALL_BACK_URL
 
 class SignUpView(permissions.IsAnnonymous, CreateView):
     success_url = '/'
@@ -34,3 +41,48 @@ class LoginView(permissions.IsAnnonymous, auth_views.LoginView):
 
 class ProfielView(CreateView):
     pass
+
+class UserTutorialView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_management/tutorials.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['seasons'] = Season.get_payed_course(request=self.request)
+        return context
+
+class UserTutorialView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_management/tutorials.html'
+
+    def get_context_data(self, **kwargs):
+        from course.models import Season
+        context = super().get_context_data(**kwargs)
+        context['seasons'] = Season.get_payed_course(request=self.request)
+        return context
+
+class UserWalletView(LoginRequiredMixin, TemplateView):
+    template_name = 'user_management/wallet.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = forms.UserWalletForm()
+        return context
+
+    def post(self, request, *arg, **kwargs):
+        form = forms.UserWalletForm(request.POST)
+        if form.is_valid():
+            from zarinpal.views import PayView
+            amount = form.cleaned_data['wallet']
+            wallet_tr = self.add_wallet_transaction(amount)
+            callback_url = CALL_BACK_URL + reverse('callback-wallet' , args=(wallet_tr.id, ))
+            return PayView(request=request).send_request(amount, callback_url)
+        else:
+            form = forms.UserWalletForm()
+
+        return render(request, 'user_management/wallet.html', {'form': form})
+    
+    def add_wallet_transaction(self, amount):
+        from zarinpal.models import WalletTransaction
+        return WalletTransaction.objects.create(
+            user=self.request.user,
+            amount=amount,
+        )

@@ -30,3 +30,7 @@ class UserSignUpForm(forms.ModelForm):
             user.save()
         return user
         
+class UserWalletForm(forms.Form):
+    wallet = forms.IntegerField(
+        min_value=1000,
+    )

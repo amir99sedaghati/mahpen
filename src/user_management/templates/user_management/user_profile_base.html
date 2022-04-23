@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block page_title%} Mahpen | Wallet {% endblock %}
+{% block content %}
+
+<main>
+    <div class="userInfo container">
+        <div class="userId">
+            <p>{{user.full_name}}</p>
+            <p>۹۸۰۰۰۰۰۰۰۰۰۰۰۰۰+</p>
+        </div>
+        <div class="userProfileImage">
+            <img height="100px" width="100px" 
+                src="{% if user.user_profile %}{% get_media_prefix %}{{user.user_profile}}{% else %}{% static 'images/profile.svg' %}{% endif %}" 
+                alt="profile">
+        </div>
+    </div>
+
+
+    <div class="userBtns container">
+        <a><button>پروفایل شخصی</button></a>
+        <a><button>دوره های شما</button></a>
+        <a><button>کیف پول</button></a>
+    </div>
+
+    {% block user_content %}
+    {% endblock %}
+</main>
+
+{% endblock %}

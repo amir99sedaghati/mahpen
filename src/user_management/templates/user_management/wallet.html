@@ -1,0 +1,37 @@
+{% extends 'user_management/user_profile_base.html' %}
+{% load static %}
+{% block page_title%} Mahpen | Wallet {% endblock %}
+{% block page_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/userwallet.css'%}">
+{% endblock %}
+{% block user_content %}
+    
+    <div class="userWallet container">
+        <div class="balance">
+            <p>موجودی شما: </p>
+            <p>{{user.get_persian_wallet_value}} تومان</p>
+        </div>
+        <div class="charge mt-3">
+            <h3>شارژ کیف پول</h3>
+            <div class="chargingPrice mt-3 mb-5">
+                <span style="font-weight: 900; font-size : 1.2rem;">مبلغ مورد نظر (تومان)</span>
+                <div class="chargingBtns">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {{ field }}
+                        {% endfor %}
+                        <input class="btn btn-primary" type="submit" value="پرداخت">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block page_js %}
+    <script src="{% static 'js/userwallet.js' %}"></script>
+{% endblock %}
+    

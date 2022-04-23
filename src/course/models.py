@@ -85,6 +85,13 @@ class Season(models.Model):
     title = models.CharField(max_length=1024)
     detail = RichTextField()
 
+    def content_counter(self):
+        return convert_english_number_to_persian_number(self.content_set.count())
+    
+    @classmethod
+    def get_payed_course(cls, request):
+        return cls.objects.filter(course__card__status=Card.PAID, course__card__user=request.user)
+
 class Content(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
     main_image = models.ImageField(upload_to="content/image", null=True, blank=True)

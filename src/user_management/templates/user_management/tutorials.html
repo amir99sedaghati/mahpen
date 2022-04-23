@@ -1,0 +1,59 @@
+{% extends 'user_management/user_profile_base.html' %}
+{% load static %}
+{% block page_title%} Mahpen | Tutorials {% endblock %}
+{% block page_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/userTutorial.css'%}">
+{% endblock %}
+{% block content %}
+    <div class="myTutorials">
+        {% for season in seasons %}
+        {% if forloop.counter0|divisibleby:"4" %}
+        <div class="myTutorialRows">
+        {% endif %}
+        
+            <div class="tutorial">
+                <div class="tutorialHeading">
+                    <div class="imageHolder">
+                        <img src="{% get_media_prefix %}{{season.course.image}}" alt="{{season.course.title}}">
+                    </div>
+                    <div class="captions">
+                        <h2>{{season.course.title}}</h2>
+                        <h3>{{season.title}}</h3>                        
+                        <h4>{{season.content_counter}} اپیزود</h4>
+                    </div>
+                </div>
+                <ul class="episodes tutorial{{forloop.counter1}}">
+                    <li  class="episode">
+                        <div class="episodeTitle">
+                            <p>اپیزود اول :</p>
+                            <p>موضوع اپیزود در حد یک سطر</p>
+                        </div>
+                        <div class="downloadSection">
+                            <p>000mb</p>
+                            <button>
+                                <p>دانلود</p>
+                                <i class="fa-solid fa-arrow-down"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <div class="dropdownDownload">
+                    <button id="tutorial{{forloop.counter1}}" onclick="showEpisodes(this.id, 0)">
+                        <p>دانلود</p>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </button>
+                </div>
+            </div>
+        
+        {% if forloop.counter0|divisibleby:"4" %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block page_js %}
+    <script src="{% static 'js/userTutorial.js' %}"></script>
+{% endblock %}
+    
