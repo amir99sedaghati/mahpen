@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from suds.client import Client
+from django.db.models import F
 from .models import Pay
 from django.shortcuts import get_object_or_404
 from course.models import Card
@@ -10,6 +11,7 @@ from user_management import handlers
 from django.shortcuts import render
 from .configurations import *
 from user_management.permissions import IsAuthenticated
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class PayView(IsAuthenticated, View):
     permission_message = 'برای پرداخت ابتدا باید حساب کاربری خودتان شوید .'
@@ -91,7 +93,6 @@ class CallBackWallet(View):
             )
 
             if result.Status == 100 or result.Status == 101:
-                from django.db.models import F
                 wallet_tr.status = result.Status
                 wallet_tr.authority = request.GET.get('Authority')
                 wallet_tr.save()
@@ -103,5 +104,22 @@ class CallBackWallet(View):
                 template_name = 'error.html'
         else:
             messages.warning(self.request, 'پرداخت لغو شد .')
+            template_name = 'error.html'
+        return render(request, f'zarinpal/{template_name}', {})
+
+class PayByWallet(LoginRequiredMixin, View):
+    def card_queryset(self):
+        return Card.objects.filter(user=self.request.user)
+    
+    def post(self, request, pk, *arg, **kwargs):
+        card = get_object_or_404(self.card_queryset().exclude(status=Card.PAID) , pk=pk)
+        amount = card.calculate_amount()
+        if not request.user.wallet < amount :
+            request.user.wallet = F('wallet') - amount
+            request.user.save()
+            card.change_status(Card.PAID)
+            template_name = 'success.html'
+        else :
+            messages.warning(self.request, 'موجودی کیف پول شما کافی نبود .')
             template_name = 'error.html'
         return render(request, f'zarinpal/{template_name}', {})

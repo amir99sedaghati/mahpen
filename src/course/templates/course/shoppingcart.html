@@ -54,7 +54,10 @@
                             {% csrf_token %}
                             <input type="submit" class="btn p-4 onlinePayment" value="پرداخت آنلاین">
                         </form>
-                        <button class="walletPayment">برداخت از کیف پول</button>
+                        <form method="post" action="{% url 'wallet-pay' card.id %}">
+                            {% csrf_token %}
+                            <input type="submit" class="btn p-4 onlinePayment walletPayment" value="پرداخت از طریق کیف پول">
+                        </form>
                     </div>
                 </div>
             {% else %}
