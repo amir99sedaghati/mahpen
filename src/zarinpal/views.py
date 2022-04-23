@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse
 from suds.client import Client
@@ -6,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from course.models import Card
 from django.views.generic.base import View
 from user_management import handlers
-from django.http.response import HttpResponse
+from django.shortcuts import render
 from .configurations import *
 from user_management.permissions import IsAuthenticated
 
@@ -22,11 +23,12 @@ class PayView(IsAuthenticated, View):
         return self.send_request(card)
 
     def send_request(self, card):
-        call_back_url = CALL_BACK_URL + reverse('callback-pay' , args=(card.id,))
+        amount = card.calculate_amount()
+        call_back_url = CALL_BACK_URL + reverse('callback-pay' , args=(card.id, amount, ))
         client = Client(ZARINPAL_WEBSERVICE)
         result = client.service.PaymentRequest(
             MMERCHANT_ID,
-            card.calculate_amount(),
+            amount,
             DESCRIPTION,
             self.request.user.email,
             None,
@@ -41,10 +43,10 @@ class CallBackView(View):
     def card_queryset(self):
         return Card.objects.filter(user=self.request.user)
     
-    def get(self, request, pk=None):
+    def get(self, request, pk, amount):
         card = get_object_or_404(self.card_queryset().filter(status=Card.FREEZE) , pk=pk)
         if request.GET.get('Status') == 'OK':
-            amount = int(float(request.GET.get('amount')))
+            amount = int(float(amount))
             client = Client(ZARINPAL_WEBSERVICE)
             
             result = client.service.PaymentVerification(
@@ -63,11 +65,13 @@ class CallBackView(View):
 
             if result.Status == 100 or result.Status == 101:
                 card.change_status(Card.PAID)
-                # TODO : make valid message and template_name
-                return HttpResponse()
+                template_name = 'success.html'
             else:
                 card.change_status(Card.INPROCESS)
-                HttpResponse()
+                messages.warning(self.request, 'پرداخت موفقیت آمیز نبود .')
+                template_name = 'error.html'
         else:
             card.change_status(Card.INPROCESS)
-            HttpResponse()
+            messages.warning(self.request, 'پرداخت لغو شد .')
+            template_name = 'error.html'
+        return render(request, f'zarinpal/{template_name}', {})

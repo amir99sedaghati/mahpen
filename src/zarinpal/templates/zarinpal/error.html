@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block page_css %}
+    {{block.super}}
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="successText">
+        <p>خطا در پرداخت</p>
+        <i class="fa-solid fa-face-frown"></i>
+    </div>
+    <a class="text-decoration-none" href="{% url 'user-profile' %}">
+        <div class="backButton">
+            بازگشت به پروفایل شخصی
+        </div>
+    </a>
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+    {{block.super}}
+    <script src="{% static 'js/success.js' %}"></script>
+{% endblock %}
