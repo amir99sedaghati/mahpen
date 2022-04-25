@@ -1,4 +1,3 @@
-from this import d
 from django.db import models
 from blog.models import Category
 from ckeditor.fields import RichTextField
