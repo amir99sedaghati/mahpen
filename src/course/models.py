@@ -120,7 +120,7 @@ class Card(models.Model):
         (PAID, 'PAID'),
         (INPROCESS, 'INPROCESS'),
     ]
-    is_counter_added_to_courses = models.BooleanField(default=False)
+    is_counter_added_to_courses = models.BooleanField(default=False, editable=False)
     courses = models.ManyToManyField(Course, blank=True)
     user = models.ForeignKey(User , on_delete=models.CASCADE)
     time_created = models.DateTimeField(default=now)
