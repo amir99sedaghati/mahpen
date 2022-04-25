@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, login
 
 class UserSignUpForm(forms.ModelForm):
     repeat_password = forms.CharField(max_length=128)
@@ -12,7 +11,7 @@ class UserSignUpForm(forms.ModelForm):
             'first_name',
             'last_name',
             'email',
-            'user_profile',
+            # 'user_profile',
             'password',
         ]
         widgets = {
@@ -49,7 +48,7 @@ class UserUpdateForm(forms.ModelForm):
             'last_name',
             'email',
             # 'password',
-            'user_profile',
+            # 'user_profile',
         ]
         # widgets = {
         #     'password': forms.PasswordInput(),
