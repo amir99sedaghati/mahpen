@@ -58,8 +58,8 @@ class CoursesView(ListView):
     def get_context_data(self, **kwargs):
         from blog.models import Category
         context = super().get_context_data(**kwargs)
-        context['most_sales'] = Course.objects.all().prefetch_related('teacher', 'category').order_by('buy_counter' , '?')[0:4]
-        context['newest_course'] = Course.objects.all().prefetch_related('teacher', 'category').order_by('date' , '?')[0:4]
+        context['most_sales'] = Course.get_most_sales()
+        context['newest_course'] = Course.get_newest_course()
         context['categotories'] = Category.objects.all()
         return context
 
