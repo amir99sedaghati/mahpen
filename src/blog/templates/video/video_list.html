@@ -1,0 +1,28 @@
+{% extends 'post/post_list_base.html' %}
+{% load static %}
+{% block name_filter %}ترتیب ویدئو ها{% endblock %}
+{% block name_page %}ویدئو{% endblock %}
+{% block name_page_h %}ویدئو{% endblock %}
+
+{% block promote_posts_block %}
+    {% for post in promote_posts %}
+        <div class="carousel__card">
+            <div class="topVideosThumbnail carousel__img">
+                <div class="videoHeader">
+                    <img src="{% get_media_prefix %}{{post.image}}" alt="{{post.title}}">
+                </div>
+                <a href="{% url 'video-detail' post.id %}">
+                    <div class="videoTags">
+                        <div class="head">
+                            <p>
+                                {{post.category.title}}
+                            </p>
+                        </div>
+                        <i class="fa-solid fa-circle-play"></i>
+                        <h3>{{post.title}}</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

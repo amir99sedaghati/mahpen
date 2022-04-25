@@ -26,6 +26,14 @@ class PostAbstract(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     date_publish = models.DateTimeField(auto_now=True)
 
+    @classmethod
+    def get_promoted_post(cls):
+        return cls.objects.all().filter(is_promote=True)[0:8]
+
+    @classmethod
+    def get_related_object(cls, object):
+        return cls.objects.exclude(id=object.id).filter(category__id=object.category.id)[0:4]
+
     class Meta :
         abstract = True
     

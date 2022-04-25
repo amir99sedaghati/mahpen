@@ -3,7 +3,7 @@ from course.views import CardView
 from . import filtering
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Post
+from .models import Post, Video
 from course import filtering as course_filtering
 
 class IndexView(TemplateView):
@@ -27,13 +27,13 @@ class PostListView(ListView):
     paginate_by = 16
 
     def get_queryset(self):
-        qs = filtering.CourseFiltering(data=self.request.GET, queryset=Post.objects.all().order_by('-id')).filter()
+        qs = filtering.PostFiltering(data=self.request.GET, queryset=Post.objects.all().order_by('-id')).filter()
         return course_filtering.ordering(qs, self.request)
     
     def get_context_data(self, **kwargs):
         from blog.models import Category
         context = super().get_context_data(**kwargs)
-        context['promote_posts'] = Post.objects.all().order_by('-is_promote' , '?')[0:4]
+        context['promote_posts'] = Post.get_promoted_post()
         context['categotories'] = Category.objects.all()
         return context
 
@@ -44,5 +44,30 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['related_post'] = Post.objects.exclude(id=context['post'].id).filter(category__id=context['post'].category.id)[0:4]
+        context['related_post'] = Post.get_related_object(object=context['post'])
+        return context
+
+class VideoDetailView(DetailView):
+    model = Video
+    template_name = 'video/video_detail.html'
+    context_object_name = 'video'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related_videos'] = Video.get_related_object(object=context['video'])
+        return context
+
+class VideoListView(ListView):
+    template_name = 'video/video_list.html'
+    paginate_by = 16
+
+    def get_queryset(self):
+        qs = filtering.VideoFiltering(data=self.request.GET, queryset=Video.objects.all().order_by('-id')).filter()
+        return course_filtering.ordering(qs, self.request)
+    
+    def get_context_data(self, **kwargs):
+        from blog.models import Category
+        context = super().get_context_data(**kwargs)
+        context['promote_posts'] = Video.get_promoted_post()
+        context['categotories'] = Category.objects.all()
         return context

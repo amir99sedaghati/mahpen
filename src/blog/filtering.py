@@ -1,6 +1,10 @@
 from url_filter.filtersets import ModelFilterSet
-from .models import Post
+from .models import Post, Video
 
-class CourseFiltering(ModelFilterSet):
+class PostFiltering(ModelFilterSet):
     class Meta(object):
         model = Post
+
+class VideoFiltering(ModelFilterSet):
+    class Meta(object):
+        model = Video
