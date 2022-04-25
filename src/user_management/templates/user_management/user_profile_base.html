@@ -18,9 +18,9 @@
 
 
     <div class="userBtns container">
-        <a><button>پروفایل شخصی</button></a>
-        <a><button>دوره های شما</button></a>
-        <a><button>کیف پول</button></a>
+        <a href="{% url 'user-profile' %}"><button>پروفایل شخصی</button></a>
+        <a href="{% url 'user-tutorials' %}"><button>دوره های شما</button></a>
+        <a href="{% url 'user-wallet' %}"><button>کیف پول</button></a>
     </div>
 
     {% block user_content %}

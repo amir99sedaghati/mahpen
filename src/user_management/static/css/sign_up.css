@@ -381,3 +381,9 @@ footer{
         margin-top: -2em;
     }
 }
+
+input[type="file"] {
+    background-color: rgba(0,0,0,0);
+    box-shadow: none;
+    border-radius: 0px;
+}

@@ -1,0 +1,709 @@
+@font-face{
+    font-family: "Kalameh";
+    src: url(Kalameh-Regular.ttf) format('truetype');
+}
+body{
+    padding: 0;
+    margin: 0;
+    
+}
+*{
+    box-sizing: border-box;
+    font-family: 'Kalameh';
+}
+header{
+    width: 1s0vw;
+    height: 25vh;
+    background-color: #FBF9FB;
+    box-shadow: 1px 8px 10px 2px #888888;
+    z-index: 0;
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    justify-content: end;
+}
+.headerLogo{
+    width: 33%;
+    position: relative;    
+}
+
+.typeLogo{
+    
+    height: 100%;
+    position: absolute;
+    width: 50%;
+    left: 0;
+    
+}
+.typeLogo img{
+    width: 100%;
+    margin-top: 0em;
+    position: absolute;
+    
+    bottom: -2.9em;
+}
+
+header nav{
+    
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav ul{
+    
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    margin-top: 2em;
+}
+nav ul li{
+    transition: all 100ms;
+    padding: 1.5em;
+    margin: 0.3em;
+}
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+}
+nav ul li:hover{
+    transform: scale(1.1);
+    margin-top: 5px;
+    font-weight: bold;
+}
+.shoppingIcon{
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.8em;
+    margin-left: -3.5em;
+    z-index: 1;
+}
+.fa-cart-shopping{
+    cursor: pointer;
+    padding: 0;
+    padding-top: 0.2em;
+    margin: 0;
+}
+.shoppingIcon p{
+    padding: 0;
+    margin: 0;
+    
+}
+.addToCartIcon{
+    width: 100%;
+    display: flex;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+}
+.shoppingIcon div:hover{
+    transform: scale(1.3);
+}
+.login{
+    
+    width: 30%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login a{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+    font-size: 1.1rem;
+}
+.loginBtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    
+}
+.loginBtn:hover{
+    transform: scale(1.1);
+    transition: all 200ms;
+    font-weight: bold;
+}
+.loginBtn img{
+    margin-right: 1em;
+}
+
+.hamburgerBtn{
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    display: none;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.hamburgerBtn:hover{
+    cursor: pointer;
+}
+.hamberMenu{
+    background-color: #606061;
+    z-index: 1;
+    height: 100vh;
+    transition: all 300ms;
+    overflow: hidden;
+    display: none;
+    width: 350px;
+}
+.hamberMenu ul{
+    list-style-type: none;
+    
+    padding: 0;
+}
+.hamberMenu ul li{
+    width: 100%;
+    padding: 1em ;
+}
+.hamberMenu ul li:hover{
+    background-color: #212529;
+    cursor: pointer;
+}
+.hamberMenu ul li a{
+    text-decoration: none;
+    color: white;
+    font-size: 1.1rem;
+}
+.verticalSubMenu{
+    background-color:#212529;
+    display: none;
+}
+
+.subMenu a{
+    padding-right: 1em;
+}
+.safeNokhost{
+    position: relative;
+}
+.horizentalSubMenu{
+    position: absolute;
+    width: auto;
+    background-color: white;
+    height: auto;
+    box-shadow: 1px 12px 10px 2px #888888;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+}
+.horizentalSubMenu ul{
+    padding: 0 1em;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.horizentalSubMenu li{
+    padding: 0em 2em;
+    font-weight: 300;
+}
+.horizentalSubMenu li:hover{
+    font-weight: 900;
+}
+.closeBtn{
+    color: white;
+    padding: 0.5em 1em;
+    font-size: 1.8rem;
+}
+.logoCircle{
+    width: 300px;
+    height: 150px; /* as the half of the width */
+    background-color: #FBF9FB;
+    border-bottom-left-radius: 200px;  /* 100px of height + 10px of border */
+    border-bottom-right-radius: 200px; /* 100px of height + 10px of border */
+    box-shadow: 1px 12px 10px 2px #888888;
+    margin-right: 3em;
+    display: flex;
+    justify-content: center;
+}
+.logoImage{
+    
+    width: 700px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+} 
+.logoImage img{
+    width: 220%;
+    position: absolute;
+    top: -18.5em;
+    left: -10em;
+    
+}
+
+
+main{
+    display: flex;
+    flex-direction: column;
+}
+.userInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100vw;
+    
+    padding: 1em 0;
+}
+
+
+.userProfileImage{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #73082F;
+    margin-right: 10px;
+}
+.userProfileImage img{
+    width: 100%;
+    transform: scale(1.25);
+}
+.avatarImage{
+    width: 80px;
+    height: 80px;
+    border: none;
+}
+
+
+.userBtns{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    padding: 2em 0;
+}
+.userBtns button{
+    width: 15em;
+    padding: 0.6em 0;
+    border: none;
+    border-radius: 20px;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 10px 0px rgb(120, 120, 120);
+    transition: all 100ms;
+    background-color: white;    
+}
+.userBtns button:hover{
+    cursor: pointer;
+}
+.userBtns button:nth-of-type(1){
+    background-color: #3D8835;
+    color: white;
+    z-index: 1;
+    
+}
+.userBtns button:nth-of-type(1):hover{
+    cursor: pointer;
+}
+.userBtns button:nth-of-type(2){
+    margin: 0 15px;
+    color: #73082F;
+}
+.userBtns button:nth-of-type(2):hover{
+    background-color: #73082F;
+    color: white;
+}
+.userBtns button:nth-of-type(3){
+    color: #3D8835;
+}
+.userBtns button:nth-of-type(3):hover{
+    background-color: #3D8835;
+    color: white;
+}
+
+
+
+
+
+
+
+.userProfileInfos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.infoRow{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0.5em 0;
+    justify-content: space-between;
+    align-items:center;
+}
+.infoSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+.infoSection input{
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px 0px rgb(120, 120, 120);
+    padding: 0.7em 1em;
+    margin-right: 10px;
+}
+.nameAndLastName input{
+    width: 19em;
+}
+.phoneNumber input{
+    width: 21.5em;
+}
+.email input, .ostan input{
+    width: 25em;
+}
+.postalCode input{
+    width: 20em;
+}
+.town input{
+    width: 20.4em;
+}
+.address input{
+    width: 61.5em;
+}
+
+.avatar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 85.5%;
+    
+}
+.avatarBtns{
+    width: 100%;
+    display: flex;
+}
+.newImage{
+    border: none;
+    padding: 1em;
+    box-shadow: 0 4px 10px 0px rgb(120, 120, 120);
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1;
+    background-color: white;
+}
+
+
+.saveChanges{
+    box-shadow: 0 4px 10px 0px rgb(120, 120, 120);
+    border: none;
+    color: white;
+    background-color: #FF9919;
+    padding: 0.7em 1em;
+    font-size: 1rem;
+    border-radius: 30px;
+    margin-right: auto;
+    cursor: pointer;
+    z-index: 1;
+}
+
+
+.saveChanges:hover{
+    background-color: #3D8835;
+    color: white;
+    transition: all 100ms;
+}
+
+
+
+
+
+.socialBtn{
+    height: 65px;
+    width: 65px;
+    border: 5px solid #FBF9FB;
+    background-color: #FBF9FB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 10px 8px #888888;
+    border-radius: 40px;
+    position: fixed;
+    bottom: 2em;
+    left: 3em;
+    transition: all 200ms;
+}
+.socials{
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    transition: all 100ms;
+    margin: 0.5em;
+}
+.socials:hover{
+    transform: scale(1.1);
+}
+.instagram{
+    display: none;
+}
+.instagram img{
+    width: 100%;
+}
+
+.telegram{
+    width: 50px;
+    display: none;
+}
+.telegram img{
+    width: 100%;
+}
+
+
+
+
+
+footer{
+    background-color: #212529;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.columns{
+    display: flex;
+    flex-direction: row;
+    
+}
+.columns h3{
+    color: green;
+    font-size: 1.5rem;
+}
+.companyLogo{
+    width: 25%;
+    height: 100%;
+   
+}
+.companyLogo img:first-of-type{
+    padding: 0;
+    margin: 0;
+    transform: scale(1.5);
+    margin-left: 0.4em;
+    margin-bottom: 0.5em;
+    height: 200px;
+    width: 100%;
+    transform: scale(2);
+    margin-bottom: -3em;
+    margin-top: 1em;
+}
+.companyLogo img:last-of-type{
+    padding: 0;
+    margin: 0;
+    transform: scale(1);
+    height: 180px;
+    width: 105%;
+}
+.about{
+    width: 25%;
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+}
+.contactUs{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.contactUs .socialIcons{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.socialIcons img{
+    width: 18%;
+}
+
+.brownBackground:hover{
+    background-color: brown;
+    transition: background-color 100ms;
+}
+.greenBackgroundIcon:hover{
+    background-color: green;
+    transition: background-color 100ms;
+}
+.iconRows{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.7em;
+    
+}
+.iconRows img{
+    background-color: lightgray;
+    margin: 0 0.5em 0em 0.2em;
+    border-radius: 5px;
+    height: 60px;
+    width: 60px;
+}
+.iconRows img:first-of-type{
+    margin-left: 1em;
+}
+.licens{
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.licensImages{
+    display: flex;
+    flex-direction: column;
+}
+.licensImages img{
+    border-radius: 10px;
+    transform: scale(1);
+}
+.upperLicens{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.copyRights{
+    color: white;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: -3em;
+}
+.copyRights p{
+    font-size: 1.1rem;
+}
+
+
+
+
+
+
+
+
+@media (max-width: 800px){
+    .hamburgerBtn{
+        visibility: visible;
+    }
+    
+    .logoCircle{
+        transform: scale(0.7);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -1.6em;
+    }
+    .typeLogo{
+        right: 1.2em;
+        height: 15px;
+        transform: scale(1.3);
+        position: sticky;
+        top: 0;
+    }
+    nav ul{
+        display: none;
+    }
+    .loginBtn{
+        display: none;
+    }
+    .hamburgerBtn{
+        display: flex;
+        margin-top: 0.3em;
+    }
+    .shoppingIcon{
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding-top: 1em;
+        margin-left: -7em;
+    }
+    .userBtns{
+        flex-direction: row;
+        
+    }
+    .userBtns button{
+        width: 8em;
+        font-size: 0.8rem;
+    }
+    
+    .userBtns button:nth-of-type(2){
+        margin: 0px 5px;
+    }
+    .infoRow{
+        flex-direction: column;
+    }
+    .infoRow input{
+        width: 20em;
+    }
+    .infoSection{
+        margin-bottom: 1em;
+        justify-content:space-between;
+    }
+    .infoSection:nth-of-type(2){
+        margin-bottom: 0;
+    }
+    .avatar{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .avatarBtns{
+        margin-top: 0.5em;
+    }
+    .avatarBtns button{
+        transform: scale(0.9);
+    }
+    footer{
+        height: auto;
+    }
+    .columns{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .companyLogo{
+        width: 50%;
+    }
+    .about{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+    }
+    .contactUs{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        margin-left: 4em;
+    }
+    .contactUs h3{
+        margin-left: 0;
+    }
+    .socialIcons img{
+        transform: scale(0.8);
+    }
+    .licensImages img{
+        transform: scale(0.8);
+    }
+    .copyRights{
+        margin-top: -2em;
+    }
+}

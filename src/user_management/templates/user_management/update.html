@@ -1,0 +1,95 @@
+{% extends 'user_management/user_profile_base.html' %}
+{% load static %}
+{% block page_title%} Mahpen | Update {% endblock %}
+{% block page_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/user.css'%}">
+    <link rel="stylesheet" href="{% static 'css/sign_up.css'%}">
+{% endblock %}
+{% block user_content %}
+<div class="mt-5 mb-5 container">
+    <form method="post">
+        {% csrf_token %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger m-2">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-danger m-2">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for field in form %}
+            <div class="fieldWrapper p-2">
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div class="p-2 col-2"><input class="btn saveChanges btn-primary" type="submit" value="ثبت"></div>
+    </form>
+</div>
+
+{% comment %} <div class="userProfileInfos">
+    <div class="infoRow">
+        <div class="infoSection nameAndLastName">
+            <label for="">نام و نام‌خانوادگی</label>
+            <input type="text" placeholder="نام و نام‌خانوادگی">
+        </div>
+        <div class="infoSection phoneNumber">
+            <label for="">شماره تماس</label>
+            <input type="text" placeholder="+۹۸۰۰۰۰۰۰۰۰">
+        </div>
+    </div>
+    <div class="infoRow">
+        <div class="infoSection email">
+            <label for="">ایمیل</label>
+            <input type="text" placeholder="نام و نام‌خانوادگی">
+        </div>
+        <div class="infoSection postalCode">
+            <label for="">کد پستی ۱۰ رقمی</label>
+            <input type="text" placeholder="۱۲۳۴۵۶۷۸۹۰">
+        </div>
+    </div>
+    <div class="infoRow">
+        <div class="infoSection ostan">
+            <label for="">استان</label>
+            <input type="text" placeholder="استان">
+        </div>
+        <div class="infoSection town">
+            <label for="">شهرستان / شهر</label>
+            <input type="text" placeholder="شهرستان">
+        </div>
+    </div>
+    <div class="infoRow">
+        <div class="infoSection address">
+            <label for="">آدرس</label>
+            <input type="text" placeholder="آدرس">
+        </div>
+    </div>
+    <div class="infoRow">
+        <div class="infoSection avatar">
+            <label for="">آواتار</label>
+            <div class="userProfileImage avatarImage">
+                <img src="profile.svg" alt="profile">
+            </div>
+            <div class="avatarBtns">
+                <button class="newImage">آپلود عکس جدید +</button>
+                <button class="saveChanges">ذخیره تغییرات</button>  
+            </div>
+        </div>
+        <div >
+            
+        </div>
+    </div>
+</div> {% endcomment %}
+
+{% endblock %}
+
+{% block page_js %}
+    <script src="{% static 'js/user.js' %}"></script>
+{% endblock %}

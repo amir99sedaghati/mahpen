@@ -1,10 +1,8 @@
-from re import L
 from django.contrib.auth import get_user_model
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.base import TemplateView
-from django.views.generic.detail import DetailView
 from django.contrib.auth import authenticate, login
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from course.models import Season
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -39,8 +37,15 @@ class LoginView(permissions.IsAnnonymous, auth_views.LoginView):
     next_page = '/'
     permission_message = 'برای ورود به حساب کاربری دیگر ابتدا باید از حساب کاربری فعلی خارج شوید .'
 
-class ProfielView(CreateView):
-    pass
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    success_url = reverse_lazy('user-profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    model = get_user_model()
+    template_name = 'user_management/update.html'
+    form_class = forms.UserUpdateForm
 
 class UserTutorialView(LoginRequiredMixin, TemplateView):
     template_name = 'user_management/tutorials.html'

@@ -163,4 +163,7 @@ ZARINPAL_CONFIGURATION = {
     'call_back_url' : 'http://localhost:8000',
 }
 
-LOGIN_URL = '/user/login/'
+from django.urls import reverse_lazy
+
+LOGIN_URL = reverse_lazy('user-login')
+LOGIN_REDIRECT_URL = reverse_lazy('user-profile')
