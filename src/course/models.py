@@ -34,6 +34,10 @@ class Course(models.Model):
     supported_course = models.ManyToManyField('self', blank=True)
 
     @classmethod
+    def get_most_off(cls):
+        return cls.objects.select_related('category', 'teacher').filter(is_promote=True).order_by('-off')
+
+    @classmethod
     def get_most_sales(cls):
         return cls.objects.all().prefetch_related('teacher', 'category').order_by('-buy_counter' , '?')[0:4]
 

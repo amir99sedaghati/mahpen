@@ -1,9 +1,11 @@
+from unicodedata import category
 from django.views.generic import TemplateView
 from course.views import CardView
 from . import filtering
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Post, Video
+from .models import Category, Post, Video
+from course.models import Course
 from course import filtering as course_filtering
 
 class IndexView(TemplateView):
@@ -14,7 +16,7 @@ class IndexView(TemplateView):
         from .models import Category
         context = super().get_context_data(**kwargs)
         context['courses'] = Course.objects.order_by('-date').filter(is_promote=True)[0:3]
-        context['offers'] = Course.objects.select_related('category', 'teacher').filter(is_promote=True).order_by('off')[0:4]
+        context['offers'] = Course.get_most_off()[0:4]
         context['promoted_categotories'] = Category.objects.filter(is_promote=True)
         context['categotories'] = Category.objects.all()
         if self.request.user.is_authenticated :
@@ -70,4 +72,17 @@ class VideoListView(ListView):
         context = super().get_context_data(**kwargs)
         context['promote_posts'] = Video.get_promoted_post()
         context['categotories'] = Category.objects.all()
+        return context
+
+class CategoryDeatilView(DetailView):
+    model = Category
+    context_object_name = 'category'
+    template_name = 'category/category_detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categotories'] = Category.objects.all()
+        context['offered_courses'] = Course.get_most_off().filter(category__id=context['category'].id)[0:4]
+        context['promote_videos'] = Video.objects.filter(category__id=context['category'].id)[0:4]
+        context['promote_posts'] = Post.objects.filter(category__id=context['category'].id)[0:4]
         return context

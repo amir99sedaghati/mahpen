@@ -7,4 +7,5 @@ urlpatterns = [
     path('post/<int:pk>/', views.PostDetailView.as_view(), name='post-detail'),
     path('video/<int:pk>/', views.VideoDetailView.as_view(), name='video-detail'),
     path('video/', views.VideoListView.as_view(), name='video-list'),
+    path('category/<int:pk>/', views.CategoryDeatilView.as_view(), name='category-detail'),
 ]

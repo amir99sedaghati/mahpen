@@ -11,8 +11,10 @@ class Category(models.Model):
     image = models.ImageField(upload_to="category/image")
     is_promote = models.BooleanField(default=False)
     date_publish = models.DateField(auto_now=True)
-    color = ColorField()
-    text_color = ColorField()
+    color = ColorField(default="#88153e")
+    title_color = ColorField(default="#3d8835")
+    text_color = ColorField(default="#ffffff")
+    text = RichTextField()
 
     def __str__(self):
         return f'{__class__.__name__}({self.id} , {self.title})'

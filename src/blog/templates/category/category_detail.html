@@ -1,0 +1,178 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block page_css %}
+    {% comment %} {{block.super}} {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+    <style>
+        .category-div, .category-div * {
+            color : {{category.text_color}};
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<main>
+
+    <div style="background-color : {{category.color}}" class="aboutServices">
+        <div class="logoCircle logoCircle2">
+
+        </div>
+        <div class="serviceContent mb-5 mt-3">
+            <div class="serviceText col-8">
+                <h1 class="mt-2" style="color : {{category.title_color}}">{{category.title}}</h1>
+                <div class="category-div mt-4">
+                    {{category.text |safe}}
+                </div>
+            </div>
+            <div class="servicePicture pb-5">
+                <img src="{% get_media_prefix %}{{category.image}}" alt="success">
+            </div>
+        </div>
+        
+    </div>
+
+    {% if promote_posts %}
+        <div class="topVideos">
+            <h2>مقاله های برگزیده</h2>
+            <div class="carousel">
+                <div class="carousel__control rightBtn">
+                    <button class="carousel__btn carousel__btn--next"><i class="fa-solid fa-angle-right"></i></button>
+                </div>
+                <div class="carousel__cards">
+                    {% for post in promote_posts %}
+                        <div class="carousel__card">
+                            <div class="topVideosThumbnail carousel__img">
+                                <div class="videoHeader">
+                                    <img src="{% get_media_prefix %}{{post.image}}" alt="{{post.title}}">
+                                </div>
+                                <a href="{% url 'post-detail' post.id %}">
+                                    <div class="videoTags">
+                                        <div class="head">
+                                            <p>
+                                                {{post.category.title}}
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-circle-play"></i>
+                                        <h3>{{post.title}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="carousel__control leftBtn">
+                    <button class="carousel__btn carousel__btn--back"><i class="fa-solid fa-angle-left"></i></button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if promote_videos %}
+        <div class="topVideos">
+            <h2>ویدئو های برگزیده</h2>
+            <div class="carousel">
+                <div class="carousel__control rightBtn">
+                    <button class="carousel__btn carousel__btn--next post_carousel__btn post_carousel__btn--next"><i class="fa-solid fa-angle-right"></i></button>
+                </div>
+                <div class="post_carousel__cards carousel__cards">
+                    {% for post in promote_videos %}
+                        <div class="carousel__card">
+                            <div class="topVideosThumbnail carousel__img">
+                                <div class="videoHeader">
+                                    <img src="{% get_media_prefix %}{{post.image}}" alt="{{post.title}}">
+                                </div>
+                                <a href="{% url 'video-detail' post.id %}">
+                                    <div class="videoTags">
+                                        <div class="head">
+                                            <p>
+                                                {{post.category.title}}
+                                            </p>
+                                        </div>
+                                        <i class="fa-solid fa-circle-play"></i>
+                                        <h3>{{post.title}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="carousel__control leftBtn">
+                    <button class="post_carousel__btn carousel__btn post_carousel__btn--back"><i class="fa-solid fa-angle-left"></i></button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if offered_courses %}
+    <div class="offers">
+        <h4>بیشنهاد ویژه</h4>
+        <div class="offs mt-5 mb-4">
+            {% for offered_course in offered_courses %}
+                {% if forloop.counter0|divisibleby:"2" %}
+                    <div class="offRows">
+                {% endif %}
+                <a class="text-dark text-decoration-none" href="{% url 'course-detail' offered_course.id %}">
+                    <div class="offPackages">
+                        <p class="percent">{{offered_course.persian_off}} ٪ تخفیف</p>
+                        <p class="nameOfPackage">{{offered_course.category.title}}</p>
+                        <img src="{% get_media_prefix%}{{offered_course.image}}" alt="{{course.title}}">
+                        <div class="captions">
+                            <h5>{{offered_course.title}}</h5>
+                            <p>{{offered_course.teacher.full_name}}</p>
+                            <p>{{offered_course.persian_amount_without_off}} تومان</p>
+                            <p>{{offered_course.get_raw_amount}} تومان</p>
+                        </div>
+                    </div>
+                </a>
+                {% if forloop.counter0|add:"1"|divisibleby:"2" or forloop.last %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</main>
+
+{% endblock content %}
+
+{% block page_js %}
+    {{block.super}}
+    <script>
+
+        const next = document.querySelector(".carousel__btn--next"),
+        back = document.querySelector(".carousel__btn--back"),
+        carousel = document.querySelector(".carousel__cards");
+        let angle = 0;
+
+
+        next.addEventListener("click", () => {
+            angle -= 45;
+            carousel.style.transform = `translateZ(-25rem) rotateY(${angle}deg)`;
+        });
+
+        back.addEventListener("click", () => {
+            angle += 45;
+            carousel.style.transform = `translateZ(-25rem) rotateY(${angle}deg)`;
+        });
+
+        // post carousel
+
+        const post_next = document.querySelector(".post_carousel__btn--next"),
+        post_back = document.querySelector(".post_carousel__btn--back"),
+        post_carousel = document.querySelector(".post_carousel__cards");
+        let post_angle = 0;
+
+
+        post_next.addEventListener("click", () => {
+            post_angle -= 45;
+            post_carousel.style.transform = `translateZ(-25rem) rotateY(${post_angle}deg)`;
+        });
+
+        post_back.addEventListener("click", () => {
+            post_angle += 45;
+            post_carousel.style.transform = `translateZ(-25rem) rotateY(${post_angle}deg)`;
+        });
+    </script>
+{% endblock %}
