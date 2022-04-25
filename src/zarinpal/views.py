@@ -10,11 +10,9 @@ from django.views.generic.base import View
 from user_management import handlers
 from django.shortcuts import render
 from .configurations import *
-from user_management.permissions import IsAuthenticated
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class PayView(IsAuthenticated, View):
-    permission_message = 'برای پرداخت ابتدا باید حساب کاربری خودتان شوید .'
+class PayView(LoginRequiredMixin, View):
 
     def card_queryset(self):
         return Card.objects.filter(user=self.request.user)

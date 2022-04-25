@@ -4,14 +4,17 @@ from django.views.generic.list import ListView
 from django.shortcuts import get_object_or_404
 from .models import Card, Course
 from .permission import ShouldNotHaveEnableCard
-from user_management.permissions import IsAuthenticated
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib import messages
 from . import filtering
+from django.shortcuts import redirect
 
-class AddCourseToCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
+class AddCourseToCardView(LoginRequiredMixin, ShouldNotHaveEnableCard, View):
     card_status_messgage = 'برای اضافه کردن محصول به سبد خرید ابتدا باید سبد خرید در حال پرداخت قبلی را تسویه نمایید، سبد خرید شما بعد از ۱۵ دقیقه به حالت پرداخت نشده باز میگردد .'
-    permission_message = 'برای اضافه کردن محصول به سبد خرید ابتدا باید وارد حساب کاربری شوید .'
+    
+    def get(self, request, pk, *args, **kwargs):
+        return redirect('course-detail', pk)
 
     def post(self, request, pk, *args, **kwargs):
         course = get_object_or_404(Course.objects.filter(id=pk))
@@ -23,9 +26,11 @@ class AddCourseToCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
             messages.warning(self.request , "شما قبلا این دوره را خریداری کرده اید . برای دیدن محتوای آن میتوانید به پروفایل خود مراجعه کنید .")
         return redirect('course-list')
 
-class DeleteCourseFromCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
+class DeleteCourseFromCardView(LoginRequiredMixin, ShouldNotHaveEnableCard, View):
     card_status_messgage = 'برای حذف کردن محصول از سبد خرید ابتدا باید سبد خرید در حال پرداخت قبلی را تسویه نمایید، سبد خرید شما بعد از ۱۵ دقیقه به حالت پرداخت نشده باز میگردد .'
-    permission_message = 'برای اضافه کردن محصول به سبد خرید ابتدا باید وارد حساب کاربری شوید .'
+
+    def get(self, request, pk, *args, **kwargs):
+        return redirect('course-detail', pk)
 
     def post(self, request, pk, *args, **kwargs):
         course = get_object_or_404(Course.objects.filter(id=pk))
@@ -33,9 +38,8 @@ class DeleteCourseFromCardView(IsAuthenticated, ShouldNotHaveEnableCard, View):
         card.delete_course(course)
         return redirect('card-detail')
 
-class CardView(IsAuthenticated, ShouldNotHaveEnableCard, DetailView):
+class CardView(LoginRequiredMixin, ShouldNotHaveEnableCard, DetailView):
     card_status_messgage = 'برای مشاهده وضعیت سبد خرید ابتدا باید سبد خرید در حال پرداخت قبلی را تسویه نمایید، سبد خرید شما بعد از ۱۵ دقیقه به حالت پرداخت نشده باز میگردد .'
-    permission_message = 'برای مشاهده کردن محصول به سبد خرید ابتدا باید وارد حساب کاربری شوید .'
     template_name = 'course/shoppingcart.html'
     context_object_name = 'card'
 
