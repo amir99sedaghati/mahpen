@@ -1,5 +1,14 @@
 {% extends 'blog/base.html' %}
 {% load static %}
+{% block page_css %}
+    {{ block.super }}
+    <style>
+        .active-page {
+            background-color: #73082f !important;
+            color : #fff !important;
+        }
+    </style>
+{% endblock %}
 {% block page_title%} Mahpen | Wallet {% endblock %}
 {% block content %}
 
@@ -18,9 +27,9 @@
 
 
     <div class="userBtns container">
-        <a href="{% url 'user-profile' %}"><button>پروفایل شخصی</button></a>
-        <a href="{% url 'user-tutorials' %}"><button>دوره های شما</button></a>
-        <a href="{% url 'user-wallet' %}"><button>کیف پول</button></a>
+        <a href="{% url 'user-profile' %}"><button class="{% block active_profile %}{% endblock %}">پروفایل شخصی</button></a>
+        <a href="{% url 'user-tutorials' %}"><button class="{% block active_tutorial %}{% endblock %}">دوره های شما</button></a>
+        <a href="{% url 'user-wallet' %}"><button class="{% block active_wallet %}{% endblock %}">کیف پول</button></a>
     </div>
 
     {% block user_content %}

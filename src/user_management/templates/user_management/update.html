@@ -1,9 +1,11 @@
 {% extends 'user_management/user_profile_base.html' %}
 {% load static %}
+{% block active_profile %}active-page{% endblock %}
 {% block page_title%} Mahpen | Update {% endblock %}
 {% block page_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/user.css'%}">
+    <link rel="stylesheet" href="{% static 'css/userwallet.css'%}">
     <link rel="stylesheet" href="{% static 'css/sign_up.css'%}">
 {% endblock %}
 {% block user_content %}

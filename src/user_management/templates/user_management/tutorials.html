@@ -1,59 +1,103 @@
 {% extends 'user_management/user_profile_base.html' %}
 {% load static %}
-{% block page_title%} Mahpen | Tutorials {% endblock %}
+{% block active_tutorial %}active-page{% endblock %}
+{% block page_title%} Mahpen | Wallet {% endblock %}
 {% block page_css %}
-    {{ block.super }}
+    <style>
+        .active-page {
+            background-color: #73082f !important;
+            color : #fff !important;
+        }
+    </style>
     <link rel="stylesheet" href="{% static 'css/userTutorial.css'%}">
 {% endblock %}
-{% block content %}
-    <div class="myTutorials">
-        {% for season in seasons %}
-        {% if forloop.counter0|divisibleby:"4" %}
-        <div class="myTutorialRows">
+{% block user_content %}
+
+{% if seasons %}
+
+<div class="myTutorials">
+    {% for season in seasons %}
+        {% if forloop.counter0|divisibleby:"2" %}
+            <div class="myTutorialRows">
         {% endif %}
-        
-            <div class="tutorial">
-                <div class="tutorialHeading">
-                    <div class="imageHolder">
-                        <img src="{% get_media_prefix %}{{season.course.image}}" alt="{{season.course.title}}">
-                    </div>
-                    <div class="captions">
-                        <h2>{{season.course.title}}</h2>
-                        <h3>{{season.title}}</h3>                        
-                        <h4>{{season.content_counter}} اپیزود</h4>
-                    </div>
+    
+        <div class="tutorial mb-5">
+            <div class="tutorialHeading">
+                <div class="imageHolder">
+                    <img src="{% get_media_prefix %}{{season.course.image}}" alt="{{season.course.title}}">
                 </div>
-                <ul class="episodes tutorial{{forloop.counter1}}">
-                    <li  class="episode">
-                        <div class="episodeTitle">
-                            <p>اپیزود اول :</p>
-                            <p>موضوع اپیزود در حد یک سطر</p>
-                        </div>
-                        <div class="downloadSection">
-                            <p>000mb</p>
-                            <button>
-                                <p>دانلود</p>
-                                <i class="fa-solid fa-arrow-down"></i>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
-                <div class="dropdownDownload">
-                    <button id="tutorial{{forloop.counter1}}" onclick="showEpisodes(this.id, 0)">
-                        <p>دانلود</p>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </button>
+                <div class="captions">
+                    <h2>{{season.course.title}}</h2>
+                    <h3>{{season.title}}</h3>                        
+                    <h4>{{season.content_counter}} اپیزود</h4>
                 </div>
             </div>
-        
-        {% if forloop.counter0|divisibleby:"4" %}
+            <ul class="episodes tutorial{{season.id}}">
+                {% for content in season.get_contents %}
+                    <li  class="episode p-2">
+                        <div class="episodeTitle">
+                            <p>{{content.name}} :</p>
+                            <p>{{content.title}}</p>
+                        </div>
+                        <div class="downloadSection">
+                            <p style="direction: ltr;">{{content.get_content_size|filesizeformat}}</p>
+                            <a download href="{% get_media_prefix %}{{content.video}}" class="text-decoration-none">
+                                <button>
+                                    <p>دانلود</p>
+                                    <i class="fa-solid fa-arrow-down"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="dropdownDownload">
+                <button id="tutorial{{season.id}}" onclick="showEpisodes(this.id, 0)">
+                    <p>دانلود</p>
+                    <i class="fa-solid fa-angle-down"></i>
+                </button>
+            </div>
         </div>
+    
+        {% if forloop.counter0|add:"1"|divisibleby:"2" or forloop.last %}
+            </div>
         {% endif %}
-        {% endfor %}
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="row">
+    <div class="container mt-5 mb-5 col-8 text-center">
+        <div class="alert alert-danger text-center">
+            <strong>شما هنوز دوره ای خریداری نکرده اید .</strong>
+        </div>
+        <a class="btn btn-primary w-25" href="{% url 'course-list' %}" role="button">مشاهده محصولات</a>
     </div>
+</div>
+{% endif %}
+
 {% endblock %}
 
 {% block page_js %}
-    <script src="{% static 'js/userTutorial.js' %}"></script>
+    <script>
+        let counter = []
+        {% for season in seasons %}
+            counter.push(0);
+        {% endfor %}
+        let showEpisodes = (x, y) => {
+            if(counter[y] == 0){
+                document.querySelector('.' + x).style.height = "100%";
+                document.querySelector('.' + x).style.opacity = "1";
+                counter[y]++;
+                return;
+            }
+            if(counter[y] == 1){
+                document.querySelector('.' + x).style.height = "0";
+                document.querySelector('.' + x).style.opacity = "0";
+                counter[y]--;
+                return;
+            }
+        }
+    </script>
 {% endblock %}
     

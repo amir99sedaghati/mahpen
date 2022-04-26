@@ -99,6 +99,9 @@ class Season(models.Model):
     title = models.CharField(max_length=1024)
     detail = RichTextField()
 
+    def get_contents(self):
+        return self.content_set.all()
+
     def content_counter(self):
         return convert_english_number_to_persian_number(self.content_set.count())
     
@@ -108,11 +111,18 @@ class Season(models.Model):
 
 class Content(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
+    name = models.CharField(max_length=128)
     main_image = models.ImageField(upload_to="content/image", null=True, blank=True)
     title = models.CharField(max_length=1024)
     detail = RichTextField(null=True, blank=True)
     video = models.FileField(upload_to="content/video", validators=[validate_video_extension], null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
+
+    def get_content_size(self):
+        print(self.video)
+        video_info = mutagen.File(self.video)
+        print(dir(video_info))
+        return 10000
 
 class Card(models.Model):
     FREEZE = 'FR'

@@ -1,6 +1,7 @@
 {% extends 'user_management/user_profile_base.html' %}
 {% load static %}
-{% block page_title%} Mahpen | Wallet {% endblock %}
+{% block page_title %} Mahpen | Wallet {% endblock %}
+{% block active_wallet %}active-page{% endblock %}
 {% block page_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/userwallet.css'%}">
