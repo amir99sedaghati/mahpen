@@ -13,6 +13,34 @@
             <link rel="stylesheet" href="{% static 'css/style.css'%}">
         {% endblock %}
         <title>{% block page_title%} Mahpen | مهپن {% endblock %}</title>
+        <style>
+            .logoImage img {
+                position: absolute;
+                top: -12.5em;
+                left: -6.5em;
+            }
+
+            .conceptsRow p {
+                font-weight: 800;
+            }
+
+            .slider {
+                margin-top: 1em;
+            }
+
+            .logoCircle {
+                width: 200px;
+                height: 100px;
+                background-color: #FBF9FB;
+                border-bottom-left-radius: 50%;
+                border-bottom-right-radius: 50%;
+                box-shadow: 1px 12px 10px 2px #888888;
+                margin-right: 3em;
+                display: flex;
+                justify-content: center;
+                margin-top: -50px;
+            }
+        </style>
     </head>
 
     <body>
@@ -38,7 +66,7 @@
                     </div>
                     <div class="hamberLists">
                         <ul>
-                            <li class="firstPage" onclick="openSubMenu()"><a href="/">صفحه نخست</a>
+                            <li class="firstPage" onclick="openSubMenu()"><a href="/">محتواها</a>
                                 {% if categotories %}
                                     {% for category in categotories %}
                                     <li class="verticalSubMenu"><a href="{% url 'category-detail' category.id %}">{{category.title}}</a></li>
@@ -46,20 +74,22 @@
                                 {% endif %}
                             </li>
                             <li><a href="{% url 'course-list' %}">دوره های اموزشی</a></li>
-                            <li><a href="#">نظرات</a></li>
+                            <li><a href="{% url 'video-list' %}">ویدئوها</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="headerLogo">
                     <div class="typeLogo">
-                        <img src="{% static 'images/logotypefa.svg' %}" alt="logotypeen">
+                        <a href="/">
+                            <img src="{% static 'images/logotypefa.svg' %}" alt="logotypeen">
+                        </a>
                     </div>
                     
                     
                 </div>
                 <nav class="topNav">
                     <ul>
-                        <li class="safeNokhost" onmouseover="showSubMenu()" onmouseout="hideSubMenu()"><a href="/">صفحه نخست</a>
+                        <li class="safeNokhost" onmouseover="showSubMenu()" onmouseout="hideSubMenu()"><a href="/">محتواها</a>
                             {% if categotories %}
                                 <div class="horizentalSubMenu">
                                     <ul>
@@ -71,7 +101,7 @@
                             {% endif %} 
                         </li>
                         <li><a href="{% url 'course-list' %}">دوره های اموزشی</a></li>
-                        <li><a href="#">نظرات</a></li>
+                        <li><a href="{% url 'video-list' %}">ویدئوها</a></li>
                     </ul>
                 </nav>
 

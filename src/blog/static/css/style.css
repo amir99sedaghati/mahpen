@@ -33,7 +33,7 @@ header{
     width: 50%;
     left: 0;
 }
-.typeLogo img{
+.typeLogo img {
     width: 100%;
     margin-top: 0em;
     position: absolute;
@@ -216,8 +216,8 @@ nav ul li:hover{
     font-size: 1.8rem;
 }
 .logoCircle{
-    width: 300px;
-    height: 150px; /* as the half of the width */
+    width: 200px;
+    height: 100px; /* as the half of the width */
     background-color: #FBF9FB;
     border-bottom-left-radius: 200px;  /* 100px of height + 10px of border */
     border-bottom-right-radius: 200px; /* 100px of height + 10px of border */

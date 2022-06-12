@@ -119,9 +119,9 @@ class Content(models.Model):
     date = models.DateTimeField(auto_now=True)
 
     def get_content_size(self):
-        print(self.video)
-        video_info = mutagen.File(self.video)
-        print(dir(video_info))
+        # print(self.video)
+        # video_info = mutagen.File(self.video)
+        # print(dir(video_info))
         return 10000
 
 class Card(models.Model):
